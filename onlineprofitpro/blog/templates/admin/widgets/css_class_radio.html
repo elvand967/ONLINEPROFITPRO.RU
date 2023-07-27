@@ -1,0 +1,10 @@
+{% for value, data in widget.choices %}
+  <label{% if widget.attrs %} {% include "django/forms/widgets/attrs.html" %}{% endif %}>
+    <input type="radio" name="{{ widget.name }}" value="{{ value }}"{% if data.selected %} checked{% endif %}{% if widget.attrs %} {% include "django/forms/widgets/attrs.html" %}{% endif %}>
+    {% if data.icon %}
+      <img src="{% static data.icon %}" alt="{{ data.label }}" title="{{ data.label }}" style="width: 20px; height: 20px;">
+    {% endif %}
+    {{ data.label }}
+  </label>
+{% endfor %}
+

@@ -1,0 +1,9 @@
+{% load static %}
+
+{% for widget in widget.subwidgets %}
+  <label{% if widget.attrs %} for="{{ widget.attrs.id_for_label }}"{% endif %}>
+    <input type="{{ widget.type }}" name="{{ widget.name }}" value="{{ widget.value }}" class="radioselect"{% if widget.attrs %} {% include "django/forms/widgets/attrs.html" %}{% endif %}>
+    <img src="{% static 'admin/icons/' %}{{ widget.value }}.png" alt="{{ widget.value }}">
+  </label>
+{% endfor %}
+
