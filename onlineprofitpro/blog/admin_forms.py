@@ -5,8 +5,12 @@ from .models import ModelPostContent
 class ModelPostContentAdminForm(forms.ModelForm):
     class Meta:
         model = ModelPostContent
-        fields = '__all__'
+        # fields = '__all__'
+        fields = ['post', 'content_text']
         widgets = {
             'text_css_class': CssClassRadioSelect(),
             'media_file': ImagePreviewWidget(),
         }
+
+
+
