@@ -77,7 +77,7 @@ class ModelCssClass(models.Model):
 
 
 class ModelPostContent(models.Model):
-    post = models.ForeignKey('ModelPosts', on_delete=models.CASCADE, related_name='content_parts')
+    post = models.ForeignKey(ModelPosts, on_delete=models.CASCADE, related_name='content_parts')
     content_text = models.TextField(blank=True, verbose_name="Часть текста поста")
     css_class = models.CharField(max_length=50, blank=True, null=True)
     text_css_class = models.ForeignKey(
