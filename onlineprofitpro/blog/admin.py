@@ -1,21 +1,38 @@
 from django import forms
 from django.contrib import admin
 from django.contrib.admin.widgets import AdminTextareaWidget
+from django import forms
+from .models import ModelPostContent, ModelCssClass
+
+
+
+
 from django.forms import RadioSelect
 from django.utils.html import format_html
 from .models import ModelCategories, ModelSubcategories, ModelCssClass, ModelPosts, ModelPostContent, Rating
 from django.utils.safestring import mark_safe
 from .admin_forms import ModelPostContentAdminForm
 
-class CssClassRadioSelect(forms.RadioSelect):
-    template_name = 'admin/widgets/radio_inline.html'  # Path to the custom template
 
 
-# Define the inline for ModelPostContent
+from django import forms
+from .models import ModelPostContent, ModelCssClass
+
+class ModelPostContentInlineForm(forms.ModelForm):
+    class Meta:
+        model = ModelPostContent
+        fields = '__all__'
+        widgets = {
+            'css_text': forms.Select(choices=[(obj.id, obj.name) for obj in ModelCssClass.objects.filter(css_type='text')]),
+            'css_media': forms.Select(choices=[(obj.id, obj.name) for obj in ModelCssClass.objects.filter(css_type='media')]),
+        }
+
+
 class ModelPostContentInline(admin.TabularInline):
     model = ModelPostContent
     extra = 1
-    fields = ['content_text', 'text_css_class', 'media_file','thumbnail']
+    form = ModelPostContentInlineForm
+    fields = ['content_text', 'css_text', 'media_file', 'css_media', 'thumbnail']
     readonly_fields = ['thumbnail']
 
     def thumbnail(self, obj):
@@ -24,28 +41,28 @@ class ModelPostContentInline(admin.TabularInline):
         return None
 
 
-# Register the ModelCategories model
+
 class ModelCategoriesAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
     prepopulated_fields = {'slug': ('name',)}
 
 admin.site.register(ModelCategories, ModelCategoriesAdmin)
 
-# Register the ModelSubcategories model
+
 class ModelSubcategoriesAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'category')
     prepopulated_fields = {'slug': ('name',)}
 
 admin.site.register(ModelSubcategories, ModelSubcategoriesAdmin)
 
-# Register the ModelCssClass model
+
 class ModelCssClassAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'css_class', 'icon')
-    prepopulated_fields = {'css_class': ('name',)}
+    list_display = ('name', 'description', 'css_code', 'icon')
+    prepopulated_fields = {'name': ('name',)}
 
 admin.site.register(ModelCssClass, ModelCssClassAdmin)
 
-# Register the ModelPosts model
+
 class ModelPostsAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'time_create', 'is_published', 'subcat')
     list_filter = ('is_published', 'subcat')
@@ -62,9 +79,8 @@ admin.site.register(Rating, RatingAdmin)
 
 
 class ModelPostContentAdmin(admin.ModelAdmin):
-    # form = ModelPostContentAdminForm
-    list_display = ('post', 'content_text', 'text_css_class', 'get_media_file_thumbnail', 'media_css_class')
-    list_filter = ('post', 'text_css_class', 'media_css_class')
+    list_display = ('post', 'content_text', 'css_text', 'get_media_file_thumbnail', 'css_media')
+    list_filter = ('post', 'css_text__css_type', 'css_media__css_type')  # Use 'css_text__css_type' and 'css_media__css_type'
     search_fields = ('content_text',)
 
     def get_media_file_thumbnail(self, obj):

@@ -61,9 +61,21 @@ class ModelPosts(models.Model):
 
 
 class ModelCssClass(models.Model):
-    name = models.CharField(max_length=50, unique=True, verbose_name="CSS Class Name")
+    CSS_TYPE_CHOICES = (
+        ('text', 'Text'),
+        ('media', 'Media'),
+        # Add more choices if needed for different types
+    )
+
+    name = models.CharField(max_length=50, verbose_name="CSS_Name")
+    css_type = models.CharField(
+        max_length=10,
+        choices=CSS_TYPE_CHOICES,
+        default='text',
+        verbose_name="CSS Class Type"
+    )
     description = models.TextField(verbose_name="Description")
-    css_class = models.CharField(max_length=50, verbose_name="CSS Class Code", default='')
+    css_code = models.CharField(max_length=50, verbose_name="CSS Class Code", default='')
     icon = models.CharField(max_length=100, blank=True, null=True, verbose_name="Icon URL")
 
     def __str__(self):
@@ -77,21 +89,21 @@ class ModelCssClass(models.Model):
 class ModelPostContent(models.Model):
     post = models.ForeignKey(ModelPosts, on_delete=models.CASCADE, related_name='content_parts')
     content_text = models.TextField(blank=True, verbose_name="Часть текста поста")
-    css_class = models.CharField(max_length=50, blank=True, null=True)
-    text_css_class = models.ForeignKey(
+    css_text = models.ForeignKey(
         ModelCssClass,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        default=None,
+        related_name='text_content',
         verbose_name="CSS Class for Text"
     )
     media_file = models.FileField(upload_to=get_media_file_path, blank=True, null=True)
-    media_css_class = models.CharField(
-        max_length=50,
-        blank=True,
+    css_media = models.ForeignKey(
+        ModelCssClass,
+        on_delete=models.SET_NULL,
         null=True,
-        default=None,
+        blank=True,
+        related_name='media_content',
         verbose_name="CSS Class for Media"
     )
 
