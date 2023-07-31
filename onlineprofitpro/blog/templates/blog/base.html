@@ -1,23 +1,32 @@
 <!-- D:\Python\django\ONLINEPROFITPRO.RU\onlineprofitpro\blog\templates\blog\base.html -->
 
-
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     {% load static %}
-    <meta http-equiv="Content-Type" content="text\html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text\html; charset=utf-8" />
     <!-- <meta charset="utf-8"/> -->
-    <title>{{title}}</title>
-    <link rel="shortcut icon" href="{% static 'blog/img/main.ico' %}" type="image/x-icon"/>
-    
-    <link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}"/>
-    <link type="text/css" href="{% static 'blog/css/styles.css' %}" rel="stylesheet"/>
-    <!--    <meta name="viewport" content="width=device-width, initial-scale=1" />-->
-    <!--    <link rel="stylesheet" href="css/fontello.css" />-->
-</head>
-<!-- шапка Блога -->
-<header>
+    <title>{% block title %}{{title}}{% endblock %}</title>
+    <link
+      rel="shortcut icon"
+      href="{% static 'blog/img/main.ico' %}"
+      type="image/x-icon"
+    />
+
+    <link rel="stylesheet" href="{% static 'blog\css\bootstrap.min.css' %}" />
+    <link
+      type="text/css"
+      href="{% static 'admin\css\custom_admin.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      type="text/css"
+      href="{% static 'blog\css\styles.css' %}"
+      rel="stylesheet"
+    />
+  </head>
+  <!-- шапка Блога -->
+  <!-- <header>
     <div class="container">
         <div class="row">
             <div class="col-xl-4 col-md-6 col-sm-12">
@@ -35,14 +44,29 @@
             </div>
         </div>
     </div>
-</header>
-<body>
-
-{% block content %}
-{% endblock %}
-
-
-<footer id="footer">footer-footer-footer</footer>
-<script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
-</body>
+  </header> -->
+  <body>
+    <div class="container-fluid mx-auto">
+      <section class="row gy-3">
+        <div class="col-md-2 gy-3">
+          <div class="block">Меню Блога</div>
+          <div class="block">Рекламный блок</div>
+          <div class="block">блок-Погода</div>
+          <div class="block">Рекламный блок</div>
+        </div>
+        <div class="col-md-8">
+          <div class="">{% block content %} {% endblock %}</div>
+        </div>
+        <div class="col-md-2">
+          <div class="block">Рекламный блок</div>
+          <div class="block">блок-Гороскоп</div>
+          <div class="block">Рекламный блок</div>
+          <div class="block">блок-Курсы валют</div>
+        </div>
+      </section>
+    </div>
+    
+    <footer id="footer">footer-footer-footer</footer>
+    <script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
+  </body>
 </html>

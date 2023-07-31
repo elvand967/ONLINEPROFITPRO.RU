@@ -1,0 +1,20 @@
+<!-- D:\Python\django\ONLINEPROFITPRO.RU\onlineprofitpro\blog\templates\blog\post_detail.html -->
+
+{% extends 'blog/base.html' %}
+
+{% block title %}
+{{ post.title }}{{ block.super }}
+{% endblock %}
+
+{% block content %}
+{% for part in post.content_parts.all %}
+<div class="{{ part.css_text.class_css }}{% if part.css_media %} with-image{% endif %}">
+     {% if part.css_media %}
+     <img src="{{ part.media_file.url }}" alt="Image" class="{{ part.css_media.class_css }}">
+     {% endif %}
+     {% if part.css_text %}
+     {{ part.content_text }}
+     {% endif %}
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,23 @@
+<!-- D:\Python\django\ONLINEPROFITPRO.RU\onlineprofitpro\blog\templates\blog\post_list.html -->
+
+{% extends 'blog/base.html' %}
+
+{% block title %}
+Post List - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="block">
+  <h3>Blog Menu</h3>
+  <ul class="post-list">
+    {% for post in posts %}
+    <li><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+<div class="col-md-8">
+  {% block post_content %}
+  {# Content of the selected post will go here #}
+  {% endblock %}
+</div>
+{% endblock %}

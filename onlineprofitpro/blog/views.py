@@ -1,4 +1,5 @@
 
+
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from .models import *
@@ -17,6 +18,12 @@ def index(request):
 def about(request):
     return HttpResponse("<h1>Обратная связь</h1>")
 
-def post_detail(request, modelposts_slug):
-    post = get_object_or_404(ModelPosts, slug=modelposts_slug)
-    return render(request, 'blog/post.html', {'post': post})
+def post_detail(request, slug):
+    post = get_object_or_404(ModelPosts, slug=slug)
+    return render(request, 'blog/post_detail.html', {'post': post})
+
+
+
+def post_list(request):
+    posts = ModelPosts.objects.all()
+    return render(request, 'blog/post_list.html', {'posts': posts})
