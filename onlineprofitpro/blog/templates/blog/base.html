@@ -1,0 +1,48 @@
+<!-- D:\Python\django\ONLINEPROFITPRO.RU\onlineprofitpro\blog\templates\blog\base.html -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta http-equiv="Content-Type" content="text\html; charset=utf-8">
+    <!-- <meta charset="utf-8"/> -->
+    <title>{{title}}</title>
+    <link rel="shortcut icon" href="{% static 'blog/img/main.ico' %}" type="image/x-icon"/>
+    
+    <link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}"/>
+    <link type="text/css" href="{% static 'blog/css/styles.css' %}" rel="stylesheet"/>
+    <!--    <meta name="viewport" content="width=device-width, initial-scale=1" />-->
+    <!--    <link rel="stylesheet" href="css/fontello.css" />-->
+</head>
+<!-- шапка Блога -->
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4 col-md-6 col-sm-12">
+                <h1 class="text-start color4">Elvand</h1>
+            </div>
+            <div class="col-xl-8 col-md-10 col-sm-12 color5">
+                {% block mainmenu %}
+                <ul>
+                    {% for m in menu %}
+                    <li>{{m}}</li>
+                    {% endfor %}
+                </ul>
+                {% endblock mainmenu %}
+
+            </div>
+        </div>
+    </div>
+</header>
+<body>
+
+{% block content %}
+{% endblock %}
+
+
+<footer id="footer">footer-footer-footer</footer>
+<script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

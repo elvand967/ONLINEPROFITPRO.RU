@@ -1,0 +1,15 @@
+<!-- D:\Python\django\ONLINEPROFITPRO.RU\onlineprofitpro\blog\templates\blog\post.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+<!--{% for content_part in post.content_parts.all %} {% if content_part.media_file-->
+<!--%}-->
+<!--<p><img class="img-article-left" src="{{ content_part.media_file.url }}" /></p>-->
+<!--{% endif %} {% if content_part.content_text %}-->
+<!--<p>{{ content_part.content_text }}</p>-->
+<!--{% endif %}-->
+<!--<div class="clearfix"></div>-->
+<!-- Add the clearing element here -->
+{% endfor %} {% endblock %}

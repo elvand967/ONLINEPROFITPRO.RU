@@ -1,5 +1,3 @@
-# D:\Python\django\ONLINEPROFITPRO.RU\onlineprofitpro\blog\models.py
-
 import os
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -66,20 +64,20 @@ class ModelCssClass(models.Model):
         ('media', 'Media'),
         # Add more choices if needed for different types
     )
-
-    name = models.CharField(max_length=50, verbose_name="CSS_Name")
     css_type = models.CharField(
         max_length=10,
         choices=CSS_TYPE_CHOICES,
         default='text',
         verbose_name="CSS Class Type"
     )
-    description = models.TextField(verbose_name="Description")
-    css_code = models.CharField(max_length=50, verbose_name="CSS Class Code", default='')
+    name_css_class = models.CharField(max_length=50, verbose_name="Класс CSS (название)", default='')
+    description = models.TextField(verbose_name="Описание")
+    class_css = models.CharField(max_length=50, verbose_name="CSS Class", default='')
+    class_css_code = models.TextField(verbose_name="Код Class-CSS")
     icon = models.CharField(max_length=100, blank=True, null=True, verbose_name="Icon URL")
 
     def __str__(self):
-        return self.name
+        return self.name_css_class
 
     class Meta:
         verbose_name = "CSS Class"
@@ -119,10 +117,10 @@ class ModelPostContent(models.Model):
         super().save(*args, **kwargs)
 
     def get_text_css_class(self):
-        return self.text_css_class.name if self.text_css_class else ""
+        return self.css_text.name_css_class if self.css_text else ""
 
     def get_media_css_class(self):
-        return self.media_css_class if self.media_css_class else ""
+        return self.css_media.name_css_class if self.css_media else ""
 
 
 class ModelComments(models.Model):  # Комментарии к посту

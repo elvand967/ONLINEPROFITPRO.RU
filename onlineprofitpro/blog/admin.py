@@ -1,37 +1,38 @@
-from django import forms
 from django.contrib import admin
-from django.contrib.admin.widgets import AdminTextareaWidget
-from django import forms
-from .models import ModelPostContent, ModelCssClass
-
-
-
-
-from django.forms import RadioSelect
-from django.utils.html import format_html
-from .models import ModelCategories, ModelSubcategories, ModelCssClass, ModelPosts, ModelPostContent, Rating
 from django.utils.safestring import mark_safe
-from .admin_forms import ModelPostContentAdminForm
+from .models import ModelCategories, ModelSubcategories, ModelCssClass, ModelPostContent, ModelPosts
 
 
+# Admin class for ModelCategories
+class ModelCategoriesAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug')
+    prepopulated_fields = {'slug': ('name',)}
 
-from django import forms
-from .models import ModelPostContent, ModelCssClass
+admin.site.register(ModelCategories, ModelCategoriesAdmin)
 
-class ModelPostContentInlineForm(forms.ModelForm):
-    class Meta:
-        model = ModelPostContent
-        fields = '__all__'
-        widgets = {
-            'css_text': forms.Select(choices=[(obj.id, obj.name) for obj in ModelCssClass.objects.filter(css_type='text')]),
-            'css_media': forms.Select(choices=[(obj.id, obj.name) for obj in ModelCssClass.objects.filter(css_type='media')]),
-        }
+# Admin class for ModelSubcategories
+class ModelSubcategoriesAdmin(admin.ModelAdmin):
+    list_display = ('name', 'category', 'slug')
+    prepopulated_fields = {'slug': ('name',)}
+
+# Register ModelCategories and ModelSubcategories with their respective admin classes
+admin.site.register(ModelSubcategories, ModelSubcategoriesAdmin)
 
 
+# Admin class for ModelCssClass
+class ModelCssClassAdmin(admin.ModelAdmin):
+    list_display = ('name_css_class', 'css_type', 'class_css', 'class_css_code', 'icon')
+    list_filter = ('css_type',)
+    search_fields = ('name_css_class', 'description', 'class_css')
+
+# Register ModelCssClass with the admin class
+admin.site.register(ModelCssClass, ModelCssClassAdmin)
+
+
+# Inline class for ModelPostContent
 class ModelPostContentInline(admin.TabularInline):
     model = ModelPostContent
     extra = 1
-    form = ModelPostContentInlineForm
     fields = ['content_text', 'css_text', 'media_file', 'css_media', 'thumbnail']
     readonly_fields = ['thumbnail']
 
@@ -40,54 +41,38 @@ class ModelPostContentInline(admin.TabularInline):
             return mark_safe(f'<img src="{obj.media_file.url}" style="max-height: 100px; max-width: 100px;" />')
         return None
 
-
-
-class ModelCategoriesAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug')
-    prepopulated_fields = {'slug': ('name',)}
-
-admin.site.register(ModelCategories, ModelCategoriesAdmin)
-
-
-class ModelSubcategoriesAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug', 'category')
-    prepopulated_fields = {'slug': ('name',)}
-
-admin.site.register(ModelSubcategories, ModelSubcategoriesAdmin)
-
-
-class ModelCssClassAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'css_code', 'icon')
-    prepopulated_fields = {'name': ('name',)}
-
-admin.site.register(ModelCssClass, ModelCssClassAdmin)
-
-
+# Admin class for ModelPosts
 class ModelPostsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'time_create', 'is_published', 'subcat')
-    list_filter = ('is_published', 'subcat')
+    list_display = ('title', 'slug', 'time_create', 'time_update', 'is_published', 'subcat')
+    list_filter = ('time_create', 'time_update', 'is_published', 'subcat')
+    search_fields = ('title', 'slug', 'subcat__name')
     prepopulated_fields = {'slug': ('title',)}
+    readonly_fields = ('time_create', 'time_update')
     inlines = [ModelPostContentInline]
 
+# Register ModelPosts with the admin class
 admin.site.register(ModelPosts, ModelPostsAdmin)
 
-# Register the Rating model
-class RatingAdmin(admin.ModelAdmin):
-    list_display = ('post', 'user', 'value')
 
-admin.site.register(Rating, RatingAdmin)
-
-
+# Admin class for ModelPostContent
 class ModelPostContentAdmin(admin.ModelAdmin):
-    list_display = ('post', 'content_text', 'css_text', 'get_media_file_thumbnail', 'css_media')
-    list_filter = ('post', 'css_text__css_type', 'css_media__css_type')  # Use 'css_text__css_type' and 'css_media__css_type'
-    search_fields = ('content_text',)
+    list_display = ('post', 'get_text_css_class', 'get_media_css_class')
+    list_filter = ('post', 'css_text', 'css_media')
+    search_fields = ('post__title', 'content_text', 'css_text__name_css_class', 'css_media__name_css_class')
 
-    def get_media_file_thumbnail(self, obj):
-        if obj.media_file:
-            return mark_safe(f'<img src="{obj.media_file.url}" style="max-height: 100px; max-width: 100px;" />')
-        return None
+    autocomplete_fields = ('post',)  # выподающий список имеющихся постов
+    # raw_id_fields = ('post',)  # поле ввода id поста и лупа для выбора имеющихся постов
 
-    get_media_file_thumbnail.short_description = 'Media File Thumbnail'
+    def get_text_css_class(self, obj):
+        return obj.get_text_css_class()
 
+    get_text_css_class.short_description = 'CSS Class for Text'
+
+    def get_media_css_class(self, obj):
+        return obj.get_media_css_class()
+
+    get_media_css_class.short_description = 'CSS Class for Media'
+
+# Register ModelPostContent with the admin class
 admin.site.register(ModelPostContent, ModelPostContentAdmin)
+
