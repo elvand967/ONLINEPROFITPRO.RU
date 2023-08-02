@@ -2,71 +2,74 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     {% load static %}
-    <meta http-equiv="Content-Type" content="text\html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text\html; charset=utf-8"/>
     <!-- <meta charset="utf-8"/> -->
     <title>{% block title %}{{title}}{% endblock %}</title>
-    <link
-      rel="shortcut icon"
-      href="{% static 'blog/img/main.ico' %}"
-      type="image/x-icon"
-    />
+    <link rel="shortcut icon" href="{% static 'blog/img/main.ico' %}" type="image/x-icon"/>
 
-    <link rel="stylesheet" href="{% static 'blog\css\bootstrap.min.css' %}" />
-    <link
-      type="text/css"
-      href="{% static 'admin\css\custom_admin.css' %}"
-      rel="stylesheet"
-    />
-    <link
-      type="text/css"
-      href="{% static 'blog\css\styles.css' %}"
-      rel="stylesheet"
-    />
-  </head>
-  <!-- шапка Блога -->
-  <!-- <header>
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-4 col-md-6 col-sm-12">
-                <h1 class="text-start color4">Elvand</h1>
-            </div>
-            <div class="col-xl-8 col-md-10 col-sm-12 color5">
-                {% block mainmenu %}
-                <ul>
-                    {% for m in menu %}
-                    <li>{{m}}</li>
-                    {% endfor %}
-                </ul>
-                {% endblock mainmenu %}
+    <link rel="stylesheet" href="{% static 'blog\css\bootstrap.min.css' %}"/>
+    <link type="text/css" href="{% static 'admin\css\custom_admin.css' %}" rel="stylesheet"/>
+    <link type="text/css" href="{% static 'blog\css\styles.css' %}" rel="stylesheet"/>
+</head>
 
+<body>
+<div class="container-fluid mx-auto">
+    <header>
+        <nav class="navbar navbar-expand-lg bg-transparent">
+            <div class="container-fluid">
+         <a class="navbar-brand" href="#">
+           <img src="{% static 'blog/img/logo.png' %}" alt="Site Logo" width="50" height="50" class="d-inline-block align-top">
+         </a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        {% for item in menu %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url item.url_name %}">{{ item.title }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                        <button class="btn btn-outline-success" type="submit">
+                            Search
+                        </button>
+                    </form>
+                </div>
             </div>
+        </nav>
+    </header>
+    <section class="row">
+        <!-- gy-3 vertical padding; gx-3 horizontal offset -->
+        <div class="col-md-2 d-none d-md-block">
+            <!-- Display this block only from medium breakpoint (md) and above -->
+            <div class="block">Blog Menu</div>
+            <div class="block">Ad block</div>
+            <div class="block">block-weather</div>
+            <div class="block">Ad block</div>
         </div>
-    </div>
-  </header> -->
-  <body>
-    <div class="container-fluid mx-auto">
-      <section class="row gy-3">
-        <div class="col-md-2 gy-3">
-          <div class="block">Меню Блога</div>
-          <div class="block">Рекламный блок</div>
-          <div class="block">блок-Погода</div>
-          <div class="block">Рекламный блок</div>
+        <div class="col-12 col-md-8">
+            <!-- Use full width on extra small (xs) and small (sm) breakpoints,
+               and 8 columns from medium (md) breakpoint and above -->
+            <div class="">{% block content %} {% endblock %}</div>
         </div>
-        <div class="col-md-8">
-          <div class="">{% block content %} {% endblock %}</div>
+        <div class="col-md-2 d-none d-md-block">
+            <!-- Display this block only from medium breakpoint (md) and above -->
+            <div class="block">Ad block</div>
+            <div class="block">Horoscope block</div>
+            <div class="block">Ad block</div>
+            <div class="block">block-Currency Rates</div>
         </div>
-        <div class="col-md-2">
-          <div class="block">Рекламный блок</div>
-          <div class="block">блок-Гороскоп</div>
-          <div class="block">Рекламный блок</div>
-          <div class="block">блок-Курсы валют</div>
-        </div>
-      </section>
-    </div>
-    
-    <footer id="footer">footer-footer-footer</footer>
-    <script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
-  </body>
+    </section>
+
+</div>
+
+<footer id="footer">
+    footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer
+</footer>
+<script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
+</body>
+
 </html>

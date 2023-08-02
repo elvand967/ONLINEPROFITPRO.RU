@@ -1,20 +1,60 @@
-:root {
-  --color1: #00416a;
-  /*Мертвенный индиго*/
-  --color2: #007ba7;
-  /*Лазурно-серый (Зеленовато-синий)*/
-  --color3: #1fcecb;
-  /*Синий цвета яиц странствующего дрозда*/
-  --color4: #eedc82;
-  /*Старый лен*/
-  --color5: #b85d43;
-  /*Серовато-красно-оранжевый*/
-  --color6: #fff; /*фон раздела белый*/
-  --color7: #eee; /*фон раздела светлосерый*/
+
+.vbg1 {
+   background-color: var(--color13);
+   color: var(--colorB15);
 }
 
+.vbg2 {
+   background-color: #92E7E1;
+   color: var(--color23);
+}
+
+.vbg3 {
+   background-color: #A9E7E2;
+   color: var(--color23);
+}
+.vbr {
+  border-radius: 5px;
+  border: 1px solid var(--colorA15);
+  box-shadow: 2px 1px 5px #999999;
+}
+.vbr2 {
+  border-radius: 5px 5px 0 0;
+}
+
+
+
+/* Button Styles */
+.btn {
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn.vbg1 {
+  background-color: #22877F;
+  color: #B9F4B2;
+}
+
+.btn.vbg1:hover {
+  background-color: #629B97;
+  color: #041111;
+}
+
+
+
+
+
+
+
 header {
-  padding: 100px 0;
+  padding: 20px 0;
 }
 
 footer,
@@ -24,16 +64,77 @@ section {
 
 header,
 footer {
-  background: url(../img/pattern.png), var(--color1);
+  font-family: 'Times New Roman', Times, serif; /* Гарнитура текста */ 
+  font-size: 150%; /* Размер шрифта в процентах */ 
+  color: var(--color15);
+  background: url(../img/pattern.png), var(--colorA23);
   background: url(../img/pattern.png),
-    -moz-linear-gradient(left, var(--color1) 0%, var(--color2) 100%);
+    -moz-linear-gradient(left, var(--colorA23) 0%, var(--color13) 100%);
   background: url(../img/pattern.png),
-    -webkit-linear-gradient(left, var(--color1) 0%, var(--color2) 100%);
+    -webkit-linear-gradient(left, var(--colorA23) 0%, var(--color13) 100%);
   background: url(../img/pattern.png),
-    linear-gradient(to right, var(--color1) 0%, var(--color2) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=var(--color1), endColorstr=var(--color2), GradientType=1);
+    linear-gradient(to right, var(--colorA23) 0%, var(--color13) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=var(--colorA23), endColorstr=var(--color13), GradientType=1);
   background-size: contain;
 }
+
+
+
+
+
+/* Add styles for the links inside the navbar if needed */
+.navbar a {
+  color: #ffffff; /* Set the color of link signatures to white or any contrasting color */
+  text-decoration: none; /* Remove underline from links */
+}
+
+.navbar a:hover {
+  color: #ff0000; /* Set the hover color for the links */
+  text-decoration: underline; /* Add underline on hover, if desired */
+}
+
+.navbar a:visited {
+  color: #00ff00; /* Set the color of visited links, if needed */
+}
+
+.navbar a:active {
+  color: #0000ff; /* Set the color of active links, if needed */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*Кнопка*/
 .btn-itd {
   display: block;

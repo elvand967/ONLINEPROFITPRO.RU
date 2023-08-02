@@ -6,9 +6,12 @@ from blog.views import *
 from . import views
 
 urlpatterns = [
-    path('', views.post_list, name='post_list'),
+    path('', views.home, name='home'),
     path('post/<slug:slug>/', views.post_detail, name='post_detail'),
-    path('home/', index, name='home'),
+    path('contact/', contact, name='contact'),
     path('about/', about, name='about'),
+    path('guest_post/', guest_post, name='guest_post'),
+    path('login/', login, name='login'),
+    path('register/', register, name='register'),
 ]
 
