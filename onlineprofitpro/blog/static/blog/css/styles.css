@@ -1,27 +1,27 @@
-
 .vbg1 {
-   background-color: var(--color13);
-   color: var(--colorB15);
+  background-color: var(--color13);
+  color: var(--colorB15);
 }
 
 .vbg2 {
-   background-color: #92E7E1;
-   color: var(--color23);
+  background-color: #92E7E1;
+  color: var(--color23);
 }
 
 .vbg3 {
-   background-color: #A9E7E2;
-   color: var(--color23);
+  background-color: #A9E7E2;
+  color: var(--color23);
 }
+
 .vbr {
   border-radius: 5px;
   border: 1px solid var(--colorA15);
   box-shadow: 2px 1px 5px #999999;
 }
+
 .vbr2 {
   border-radius: 5px 5px 0 0;
 }
-
 
 
 /* Button Styles */
@@ -29,29 +29,20 @@
   border: none;
   padding: 8px 12px;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 7px;
   font-size: 16px;
   text-align: center;
   text-decoration: none;
+  font-family: 'Roboto';
   display: inline-block;
   transition: background-color 0.3s, color 0.3s;
-}
-
-.btn.vbg1 {
   background-color: #22877F;
   color: #B9F4B2;
 }
-
-.btn.vbg1:hover {
+.btn:hover {
   background-color: #629B97;
   color: #041111;
 }
-
-
-
-
-
-
 
 header {
   padding: 20px 0;
@@ -64,8 +55,10 @@ section {
 
 header,
 footer {
-  font-family: 'Times New Roman', Times, serif; /* Гарнитура текста */ 
-  font-size: 150%; /* Размер шрифта в процентах */ 
+  font-family: 'Times New Roman', Times, serif;
+  /* Гарнитура текста */
+  font-size: 120%;
+  /* Размер шрифта в процентах */
   color: var(--color15);
   background: url(../img/pattern.png), var(--colorA23);
   background: url(../img/pattern.png),
@@ -78,159 +71,31 @@ footer {
   background-size: contain;
 }
 
-
-
-
-
 /* Add styles for the links inside the navbar if needed */
 .navbar a {
-  color: #ffffff; /* Set the color of link signatures to white or any contrasting color */
-  text-decoration: none; /* Remove underline from links */
+  color: var(--color14);
+  /* Установите цвет подписи ссылок на белый или любой контрастный цвет. */
+  text-decoration: none;
+  /* Удалить подчеркивание в ссылках */
 }
 
 .navbar a:hover {
-  color: #ff0000; /* Set the hover color for the links */
-  text-decoration: underline; /* Add underline on hover, if desired */
+  color: var(--colorB15);
+  /* Установите цвет наведения для ссылок */
+  text-decoration: underline;
+  /* Добавьте подчеркивание при наведении, если хотите */
 }
 
+/* Установите цвет посещенных ссылок, если это необходимо 
 .navbar a:visited {
-  color: #00ff00; /* Set the color of visited links, if needed */
-}
+  color: var(--colorB15); 
+}*/
 
 .navbar a:active {
-  color: #0000ff; /* Set the color of active links, if needed */
+  color: var(--colorB15);
+  /* и цвет активных ссылок, если нужно */
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*Кнопка*/
-.btn-itd {
-  display: block;
-  max-width: 200px;
-  margin: 0 auto;
-  padding: 8px 30px;
-  color: var(--color3);
-  background-color: var(--color1);
-}
-.btn-itd:hover {
-  color: var(--color4);
-  background-color: var(--color2);
-}
-
-/*Цвет*/
-.color1 {
-  color: var(--color1);
-}
-.color2 {
-  color: var(--color2);
-}
-.color3 {
-  color: var(--color3);
-}
-.color4 {
-  color: var(--color4);
-}
-.color5 {
-  color: var(--color5);
-}
-.bg1 {
-  background-color: var(--color1);
-}
-.bg2 {
-  background-color: var(--color2);
-}
-.bgr3 {
-  background-color: var(--color3);
-}
-.bg4 {
-  background-color: var(--color4);
-}
-.bg5 {
-  background-color: var(--color5);
-}
-
-/*фоны разделов*/
-.about,/*Раздел №1*/
-.shedule {
-  background-color: var(--color6);
-}
-.forwhom,
-.learning {
-  background-color: var(--color7);
-}
-
-.about i {
-  font-size: 25px;
-  color: var(--color1);
-}
-.itd_circle {
-  margin: 0 auto 15px;
-  width: 70px;
-  height: 70px;
-  border: 3px solid var(--color1);
-  border-radius: 50%;
-  display: flex; /*центрируем все*/
-  justify-content: center; /*центр по горизонтали*/
-  align-items: center; /*центр по вертикали*/
-}
-.line {
-  width: 100px;
-  height: 3px;
-  background-color: var(--color3);
-  margin: 15px auto 30px;
-}
-
-/*Раздел №2*/
-.forwhom h5 {
-  padding: 50px;
-  border: 3px solid var(--color1);
-}
-
-/*Раздел №3*/
-/*активное меню аккордиона*/
-.accordion-button:not(.collapsed) {
-  color: var(--bs-white); /*цвет текста*/
-  background-color: var(--color1); /*фон активного поля*/
-}
-.accordion-button:not(.collapsed)::after {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
-  transform: rotate(180deg);
-}
-
-/*Раздел №4*/
-.learning h5 {
-  padding: 25px;
-  border: 3px solid var(--color1);
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
 }

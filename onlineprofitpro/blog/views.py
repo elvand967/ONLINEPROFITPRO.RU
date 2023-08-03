@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from .models import *
 from .utils import menu
-
+from django.contrib.auth import views as auth_views
 
 def contact(request):
     return HttpResponse("<h1>Обратная связь</h1>")
@@ -20,6 +20,10 @@ def guest_post(request):
 
 def login(request):
     return HttpResponse("<h1>login</h1>")
+
+
+def user_profile(request, username):
+    return HttpResponse(f"<h1>User profile for {username}</h1>")
 
 
 def register(request):
@@ -44,8 +48,8 @@ def home(request):
                 'media_file': first_part.media_file,
                 'css_media_class': first_part.css_media.class_css if first_part.css_media else '',
             })
-
-    return render(request, 'blog/home.html', {'post_previews': post_previews, 'menu': menu})
+    title = "Главная"  # Set the desired title for the home page
+    return render(request, 'blog/home.html', {'post_previews': post_previews, 'menu': menu, 'title': title})
 
 
 def post_detail(request, slug):

@@ -34,33 +34,25 @@
   --colorB24: #569156;
   --colorB25: #669166;
 }
-/* CSS reset */
-body, h1, h2, h3, h4, h5, h6, p, ul, ol, li {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font-family: inherit;
-  vertical-align: baseline;
-}
 
-/* Set your favorite font */
+/* Set the font family for the body */
 body {
-  font-family: "Your Favorite Font", Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
-/* Set your text color */
-body {
-  color: var(--color23); /* Your favorite text color */
+/* Set the font family for the headings */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
 }
 
-/* Set your general background */
-body {
-  background-color: #CFF3F0; /* Your favorite background color */
+form {
+    font-family: 'Roboto'; /* Use the font specified in the body */
 }
 
-
-
+/* Set the font family for the navigation links */
+.navbar a {
+    font-family: 'Roboto', sans-serif;
+}
 
 
 .text-align-left {
@@ -112,10 +104,11 @@ body {
 }
 
 .block {
-  background-color: #A9E7E2;;
+  background-color: #05b8ff;;
   border: solid 1px #1f1b1b;
   /*padding: 20px;*/
   /*margin: 0 0 10px 0;*/
   text-align: center;
   min-height: 200px;
+  color: #050913;
 }

@@ -5,71 +5,139 @@
 
 <head>
     {% load static %}
-    <meta http-equiv="Content-Type" content="text\html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text\html; charset=utf-8" />
     <!-- <meta charset="utf-8"/> -->
-    <title>{% block title %}{{title}}{% endblock %}</title>
-    <link rel="shortcut icon" href="{% static 'blog/img/main.ico' %}" type="image/x-icon"/>
+    <title>{% block title %}{{ title }}{% endblock %}</title>
+    <link rel="shortcut icon" href="{% static 'blog/img/main.ico' %}" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static 'blog\css\bootstrap.min.css' %}" />
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" /> -->
 
-    <link rel="stylesheet" href="{% static 'blog\css\bootstrap.min.css' %}"/>
-    <link type="text/css" href="{% static 'admin\css\custom_admin.css' %}" rel="stylesheet"/>
-    <link type="text/css" href="{% static 'blog\css\styles.css' %}" rel="stylesheet"/>
+    <link type="text/css" href="{% static 'admin\css\custom_admin.css' %}" rel="stylesheet" />
+    <link type="text/css" href="{% static 'blog\css\styles.css' %}" rel="stylesheet" />
 </head>
 
 <body>
-<div class="container-fluid mx-auto">
-    <header>
-        <nav class="navbar navbar-expand-lg bg-transparent">
-            <div class="container-fluid">
-         <a class="navbar-brand" href="#">
-           <img src="{% static 'blog/img/logo.png' %}" alt="Site Logo" width="50" height="50" class="d-inline-block align-top">
-         </a>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        {% for item in menu %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url item.url_name %}">{{ item.title }}</a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                        <button class="btn btn-outline-success" type="submit">
-                            Search
+    <div class="container-fluid mx-auto align-self-center">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+                <div class="container-fluid">
+                    <!-- Logo -->
+                    <div class="col-sm-6 col-md-6 col-lg-2 d-flex align-items-center">
+                        <a class="navbar-brand" href="{% url 'home' %}">
+                            <img src="{% static 'blog/img/logo.png' %}" alt="Elvand" width="50" height="50" />
+                        </a>
+                    </div>
+                    <!-- Menu Links and Collapsed Menu -->
+                    <div class="col-sm-6 col-md-6 col-lg-6 d-flex align-items-center justify-content-end">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                {% for item in menu %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url item.url_name %}">{{ item.title }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
                         </button>
-                    </form>
+                    </div>
+                    <!-- Authentication Links and Search Form -->
+                    <div class="col-md-12 col-lg-4">
+                        <div class="row">
+                            <!-- Authentication links -->
+                            <div class="col-sm-12 col-md-7 col-lg-6">
+                                {% if user.is_authenticated %}
+                                <ul class="navbar-nav flex-row justify-content-start">
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                            href="{% url 'user_profile' user.username %}">{{ user.username }}&nbsp;</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                                    </li>
+                                </ul>
+                                {% else %}
+                                <ul class="navbar-nav flex-row justify-content-start">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'login' %}">Login&nbsp;</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                                    </li>
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-12 col-md-5 col-lg-6">
+                                <!-- Search form -->
+                                <form class="d-flex me-auto" role="search">
+                                    <input class="form-control me-2" type="search" placeholder="Поиск"
+                                        aria-label="Search" />
+                                    <button class="btn btn-outline-success" type="submit">Поиск</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <!-- Main responsive navbar
+        <section>
+            <div class="container-fluid  align-self-center"">
+                <div class=" row">
+
+                <div class="block col-sm-6 col-md-6 col-lg-2">
+                    Logo
+                </div>
+
+                <div class="block col-sm-6 col-md-6 col-lg-6">
+                    Menu Links
+                </div>
+
+                <div class="col-md-12 col-lg-4">
+                    <div class="row">
+                        <div class="block col-sm-12 col-md-8 col-lg-6">
+                            Authentication links
+                        </div>
+                        <div class="block col-sm-12 col-md-4 col-lg-6">
+                            Search form
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <section class="row">
-        <!-- gy-3 vertical padding; gx-3 horizontal offset -->
-        <div class="col-md-2 d-none d-md-block">
-            <!-- Display this block only from medium breakpoint (md) and above -->
-            <div class="block">Blog Menu</div>
-            <div class="block">Ad block</div>
-            <div class="block">block-weather</div>
-            <div class="block">Ad block</div>
-        </div>
-        <div class="col-12 col-md-8">
-            <!-- Use full width on extra small (xs) and small (sm) breakpoints,
+        </section> -->
+        <section class="row">
+            <!-- gy-3 vertical padding; gx-3 horizontal offset -->
+            <div class="col-md-2 d-none d-md-block">
+                <!-- Display this block only from medium breakpoint (md) and above -->
+                <div class="block">Blog Menu</div>
+                <div class="block">Ad block</div>
+                <div class="block">block-weather</div>
+                <div class="block">Ad block</div>
+            </div>
+            <div class="col-12 col-md-8">
+                <!-- Use full width on extra small (xs) and small (sm) breakpoints,
                and 8 columns from medium (md) breakpoint and above -->
-            <div class="">{% block content %} {% endblock %}</div>
-        </div>
-        <div class="col-md-2 d-none d-md-block">
-            <!-- Display this block only from medium breakpoint (md) and above -->
-            <div class="block">Ad block</div>
-            <div class="block">Horoscope block</div>
-            <div class="block">Ad block</div>
-            <div class="block">block-Currency Rates</div>
-        </div>
-    </section>
+                <div class="">{% block content %} {% endblock %}</div>
+            </div>
+            <div class="col-md-2 d-none d-md-block">
+                <!-- Display this block only from medium breakpoint (md) and above -->
+                <div class="block">Ad block</div>
+                <div class="block">Horoscope block</div>
+                <div class="block">Ad block</div>
+                <div class="block">block-Currency Rates</div>
+            </div>
+        </section>
 
-</div>
 
-<footer id="footer">
-    footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer
-</footer>
-<script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
+        <footer id="footer">
+            footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer
+        </footer>
+    </div>
+    <script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
 </body>
 
 </html>
