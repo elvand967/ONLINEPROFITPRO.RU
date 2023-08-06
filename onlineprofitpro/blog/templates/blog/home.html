@@ -4,29 +4,40 @@
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
 <div class="row col-md-12 gy-3">
-      {% for preview in post_previews %}
-      <div class="{% cycle 'vbg2' 'vbg3' %} vbr">
-          <div class="row vbg1 vbr2">
-              <div class="col-md-3 text-start align-middle">{{ preview.post.subcat }}</div>
-              <div class="col-md-7 text-center">
-                  <h2>{{ preview.post.title }}</h2>
-              </div>
-              <div class="col-md-2 text-end align-middle">
-                  {{ preview.post.time_update}}
-              </div>
-          </div>
-          {% if preview.media_file %}
-          <img src="{{ preview.media_file.url }}" alt="Image"
-               class="img-responsive {% if preview.css_media_class %}{{ preview.css_media_class }}{% endif %}">
-          {% endif %}
-          {% if preview.content_text %}
-          {% autoescape on %}
-          <p>{{preview.content_text|linebreaks|truncatewords:50}}</p>
-          {%endautoescape%}
-          {% endif %}
-          <a href="{% url 'post_detail' preview.post.slug %}" class="btn vbg1 mt-2">Читать пост</a>
-<!--          <a href="{% url 'post_detail' preview.post.slug %}">Read More</a>-->
-      </div>
-      {% endfor %}
+    {% for preview in post_previews %}
+    <!-- Post block -->
+    <div class="vbr">
+        <div class="{% cycle 'vbg2' 'vbg3' %}">
+            <!-- Post title -->
+            <div class="row vbg1 vbr2">
+                <div class="col-md-3 text-start align-middle">{{ preview.post.subcat }}</div>
+                <div class="col-md-7 text-center">
+                    <h2>{{ preview.post.title }}</h2>
+                </div>
+                <div class="col-md-2 text-end align-middle">
+                    {{ preview.post.time_update}}
+                </div>
+            </div>
+            <!-- Post text and thumbnail -->
+            <div class="image-container">
+                {% if preview.media_file %}
+                <img src="{{ preview.media_file.url }}" alt="Image"
+                    class="img-responsive {% if preview.css_media_class %}{{ preview.css_media_class }}{% endif %}">
+                {% endif %}
+                {% if preview.content_text %}
+                {% autoescape on %}
+                <p>{{preview.content_text|linebreaks|truncatewords:50}}</p>
+                {%endautoescape%}
+                {% endif %}
+            </div>
+            <!-- "Read post" button -->
+            <div class="text-end">
+                <a href="{% url 'post_detail' preview.post.slug %}" class="btn vbg1 mt-2"
+                    style="margin: 7px;">Читать пост</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
 </div>
 {%endblock%}

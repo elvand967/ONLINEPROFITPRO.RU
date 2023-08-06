@@ -22,26 +22,36 @@
 .vbr2 {
   border-radius: 5px 5px 0 0;
 }
+.blog-post {
+display: block;
+max-width: 100%;
+min-height: 100%;
+margin: 0 auto;
+}
 
+.image-container {
+    height: auto; /* Set the height to auto to adjust based on content */
+    overflow: hidden; /* Prevent the image from overflowing */
+}
 
 /* Button Styles */
 .btn {
-  border: none;
+  border: 1px solid var(--colorB24);
   padding: 8px 12px;
   cursor: pointer;
   border-radius: 7px;
   font-size: 16px;
   text-align: center;
   text-decoration: none;
-  font-family: 'Roboto';
   display: inline-block;
   transition: background-color 0.3s, color 0.3s;
-  background-color: #22877F;
-  color: #B9F4B2;
+  background-color: var(--color13);
+  color: var(--colorB15);
 }
 .btn:hover {
-  background-color: #629B97;
-  color: #041111;
+  background-color: var(--color11);
+  border: 1px solid var(--color25);
+  color: var(--color16);
 }
 
 header {
@@ -80,7 +90,7 @@ footer {
 }
 
 .navbar a:hover {
-  color: var(--colorB15);
+  color: var(--color16);
   /* Установите цвет наведения для ссылок */
   text-decoration: underline;
   /* Добавьте подчеркивание при наведении, если хотите */

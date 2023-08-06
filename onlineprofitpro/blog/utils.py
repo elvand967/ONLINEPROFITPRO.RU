@@ -3,11 +3,7 @@ import os
 import uuid
 from django.utils import timezone  # Import 'timezone' from 'django.utils' instead of 'datetime'
 
-menu = [{'title': "Главная", 'url_name': 'home'},
-        {'title': "О нас", 'url_name': 'about'},
-        {'title': "Обратная связь", 'url_name': 'contact'},
-        {'title': "Гостевой пост", 'url_name': 'guest_post'},
-]
+
 
 
 def get_media_file_path(instance, filename):

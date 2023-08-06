@@ -3,8 +3,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from .models import *
-from .utils import menu
-from django.contrib.auth import views as auth_views
+
 
 def contact(request):
     return HttpResponse("<h1>Обратная связь</h1>")
@@ -30,9 +29,18 @@ def register(request):
     return HttpResponse("<h1>Регистрация</h1>")
 
 
-def home(request):
+def home(request, category_slug=None, subcategory_slug=None):
     # Get all posts sorted in reverse order of update date
     posts = ModelPosts.objects.filter(is_published=True).order_by('-time_update')
+
+
+    if category_slug:
+        selected_category = get_object_or_404(ModelCategories, slug=category_slug)
+        posts = posts.filter(subcat__category=selected_category)
+
+        if subcategory_slug:
+            selected_subcategory = get_object_or_404(ModelSubcategories, slug=subcategory_slug, category=selected_category)
+            posts = posts.filter(subcat=selected_subcategory)
 
     # Create a list to store the first part of each post with its picture
     post_previews = []
@@ -48,16 +56,19 @@ def home(request):
                 'media_file': first_part.media_file,
                 'css_media_class': first_part.css_media.class_css if first_part.css_media else '',
             })
-    title = "Главная"  # Set the desired title for the home page
-    return render(request, 'blog/home.html', {'post_previews': post_previews, 'menu': menu, 'title': title})
+
+    # Pass the data to the template
+    context = {
+        'post_previews': post_previews,
+        'title': "Главная страница",  # Set the desired title for the home page
+    }
+
+    return render(request, 'blog/home.html', context)
+
+
 
 
 def post_detail(request, slug):
     post = get_object_or_404(ModelPosts, slug=slug)
-    return render(request, 'blog/post_detail.html', {'post': post, 'menu': menu})
+    return render(request, 'blog/post_detail.html', {'post': post})
 
-
-
-def post_list(request):
-    posts = ModelPosts.objects.all()
-    return render(request, 'blog/post_list.html', {'posts': posts})

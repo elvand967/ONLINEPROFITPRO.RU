@@ -8,6 +8,8 @@
   --color13: #22877F;
   --color14: #92E7E1;
   --color15: #A9E7E2;
+  /* --color16: #C2F3EF; */
+   --color16: #e2faf8;
   --colorA11: #7897D5;
   --colorA12: #6B7DA0;
   --colorA13: #27488B;
@@ -38,13 +40,22 @@
 /* Set the font family for the body */
 body {
     font-family: 'Roboto', sans-serif;
+    background:var(--color16);
 }
 
 /* Set the font family for the headings */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto', sans-serif;
 }
+/* Set 'Roboto' font for buttons */
+button, input[type="button"], input[type="submit"] {
+    font-family: 'Roboto', sans-serif;
+}
 
+/* Set 'Roboto' font for form input fields */
+input[type="text"], input[type="password"], input[type="email"], textarea {
+    font-family: 'Roboto', sans-serif;
+}
 form {
     font-family: 'Roboto'; /* Use the font specified in the body */
 }
@@ -73,8 +84,10 @@ form {
 
 .img-left {
   float: left;
-  max-width: 180px;
-  max-height: var(--height_Hh);
+  display: block;
+  max-width: 15%;
+  max-height: 70%;
+  /* max-height: var(--height_Hh); */
   margin: 4px 10px 6px 4px;
   border-radius: 10px;
   /* Скругление углов изображения */
@@ -87,8 +100,10 @@ form {
 
 .img-right {
   float: right;
-  max-width: 180px;
-  max-height: var(--height_Hh);
+  display: block;
+  max-width: 15%;
+  max-height: 70%;
+  /* max-height: var(--height_Hh); */
   margin: 4px 4px 6px 10px;
   border-radius: 10px;  
   border: 1px solid var(--colorA15);
@@ -104,7 +119,7 @@ form {
 }
 
 .block {
-  background-color: #05b8ff;;
+  background-color: #aaf7e4;;
   border: solid 1px #1f1b1b;
   /*padding: 20px;*/
   /*margin: 0 0 10px 0;*/
