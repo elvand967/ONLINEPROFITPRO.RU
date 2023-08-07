@@ -45,6 +45,7 @@ base.html:
 # Для функции тега можем указать любое имя через параметр (name='menu_cat_subcat')
 # И, далее, в шаблонах (base.html и. т.п.) следует использовать имя 'menu_cat_subcat':
 # {% menu_cat_subcat as menu_cs %}
+
 @register.simple_tag(name='menu_cat_subcat')
 def get_vertical_menu_posts():
     categories = ModelCategories.objects.all()
@@ -56,3 +57,4 @@ def get_vertical_menu_posts():
     }
 
     return cat_subcat_menu
+

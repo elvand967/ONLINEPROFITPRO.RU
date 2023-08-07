@@ -8,8 +8,8 @@
   --color13: #22877F;
   --color14: #92E7E1;
   --color15: #A9E7E2;
-  /* --color16: #C2F3EF; */
-   --color16: #e2faf8;
+  --color16: #C2F3EF;
+  /*--color17: #e2faf8; */
   --colorA11: #7897D5;
   --colorA12: #6B7DA0;
   --colorA13: #27488B;
@@ -119,7 +119,7 @@ form {
 }
 
 .block {
-  background-color: #aaf7e4;;
+  /*background-color: #aaf7e4;*/
   border: solid 1px #1f1b1b;
   /*padding: 20px;*/
   /*margin: 0 0 10px 0;*/

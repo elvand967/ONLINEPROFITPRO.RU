@@ -1,37 +1,18 @@
-.vbg1 {
-  background-color: var(--color13);
-  color: var(--colorB15);
-}
 
-.vbg2 {
-  background-color: #92E7E1;
-  color: var(--color23);
-}
-
-.vbg3 {
-  background-color: #A9E7E2;
-  color: var(--color23);
-}
-
-.vbr {
-  border-radius: 5px;
-  border: 1px solid var(--colorA15);
-  box-shadow: 2px 1px 5px #999999;
-}
-
-.vbr2 {
-  border-radius: 5px 5px 0 0;
-}
 .blog-post {
 display: block;
 max-width: 100%;
 min-height: 100%;
-margin: 0 auto;
+}
+
+.header_post {
+background-color: var(--color11);
+padding: 8px 0;
 }
 
 .image-container {
-    height: auto; /* Set the height to auto to adjust based on content */
-    overflow: hidden; /* Prevent the image from overflowing */
+    height: auto; /* Установите высоту на автоматическую настройку в зависимости от содержимого. */
+    overflow: hidden; /* Предотвратите переполнение изображения */
 }
 
 /* Button Styles */
@@ -55,20 +36,18 @@ margin: 0 auto;
 }
 
 header {
-  padding: 20px 0;
+  padding: 10px 0;
 }
 
 footer,
 section {
-  padding: 50px 0;
+  padding: 30px 0;
 }
 
 header,
 footer {
-  font-family: 'Times New Roman', Times, serif;
-  /* Гарнитура текста */
-  font-size: 120%;
-  /* Размер шрифта в процентах */
+  /* font-family: 'Times New Roman', Times, serif;  Гарнитура текста */
+  font-size: 120%;  /* Размер шрифта в процентах */
   color: var(--color15);
   background: url(../img/pattern.png), var(--colorA23);
   background: url(../img/pattern.png),
@@ -81,31 +60,254 @@ footer {
   background-size: contain;
 }
 
-/* Add styles for the links inside the navbar if needed */
+/*+++++ Горизонтальное главное меню Блога +++++*/
+/* Стилизация ссылок на любой контрастный цвет. */
 .navbar a {
-  color: var(--color14);
-  /* Установите цвет подписи ссылок на белый или любой контрастный цвет. */
-  text-decoration: none;
-  /* Удалить подчеркивание в ссылках */
-}
+    color: var(--color14);  /* Установите цвет подписи ссылок */
+    text-decoration: none;  /* Удалить подчеркивание в ссылках */
+    }
 
+/* Наведения для ссылок */
 .navbar a:hover {
-  color: var(--color16);
-  /* Установите цвет наведения для ссылок */
-  text-decoration: underline;
-  /* Добавьте подчеркивание при наведении, если хотите */
+    color: var(--color16);  /* Установите цвет наведения для ссылок */
+    font-weight: bold;      /* Сделать жирным */
+    text-decoration: underline;  /* Добавьте подчеркивание при наведении */
 }
 
-/* Установите цвет посещенных ссылок, если это необходимо 
+/* Установите цвет посещенных ссылок
 .navbar a:visited {
-  color: var(--colorB15); 
-}*/
+    color: var(--colorB15);
+    }*/
 
+/* Цвет, стиль активных ссылок, если нужно */
 .navbar a:active {
+    color: var(--colorB15);
+    }
+
+
+/*++++++++++++++++++++++++++++++++++++*/
+/*+++++ Вертикальное меню Постов +++++*/
+
+/* Стилизация ссылок на любой контрастный цвет. */
+.vert_nav a {
+    color: var(--color21);  /* Установите цвет подписи ссылок на белый или любой контрастный цвет. */
+    text-decoration: none;  /* Удалить подчеркивание в ссылках */
+    }
+
+/* Удаление маркеров */
+.vert_nav li {
+    list-style-type: none; /* Нет маркеров */
+    }
+
+/* Наведения для ссылок */
+.vert_nav a:hover {
+    color: var(--color23);  /* Установите цвет наведения для ссылок */
+    font-weight: bold;      /* Сделать жирным */
+    /*font-size: 105%;  увеличить размер шрифта на 5% */
+    text-decoration: underline;  /* Добавьте подчеркивание при наведении, если хотите */
+    }
+
+/* Цвет, стиль активных ссылок, если нужно */
+.vert_nav a:active {
   color: var(--colorB15);
-  /* и цвет активных ссылок, если нужно */
+  font-weight: bold;      /* Сделать жирным */
 }
 
-.navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
+/* Цвет посещенных ссылок, если это необходимо
+.vert_nav a:visited {
+    color: var(--colorB15);
+    }*/
+/*++++++++++++++++++++++++++++++++++++*/
+
+
+/*=======================================*/
+.metro {
+  list-style: none;
+  padding: 0;
+  margin: 30px 0 0 50px;
+  border-left: 5px solid #DAE4F1;
 }
+.metro li {line-height: 2em;}
+.metro ul {
+  margin: 20px 0 20px 15px;
+  padding: 0;
+  border: none;
+  list-style: none;
+}
+.metro ul:before, .metro ul:after {
+  content: "";
+  width: 5px;
+  height: 28px;
+  background: #DAE4F1;
+  position: relative;
+  display: block;
+  left: -9px;
+}
+.metro ul:before {
+  transform: rotate(-45deg);
+  margin-top: -15px;
+}
+.metro ul:after {
+  transform: rotate(45deg);
+  bottom: -20px;
+}
+.metro ul li {border-left: 5px solid #DAE4F1;}
+.metro ul li:first-child {
+  margin-top: -5px;
+  padding-top: 5px;
+}
+.metro ul li:last-child {
+  padding-bottom: 9px;
+  margin-bottom: -25px;
+}
+.metro a {
+  text-decoration: none;
+  display: block;
+  font-family: 'Noto Sans', sans-serif;
+  color: #4A4B4D;
+}
+.metro a:before {
+  content: "";
+  display: inline-block;
+  background: #CA682D;
+  width: 12px;
+  height: 12px;
+  left: -9px;
+  position: relative;
+  border-radius: 50%;
+  margin-right: .5em;
+}
+
+.category-wrap {
+  padding: 15px;
+  background: white;
+  width: 200px;
+  box-shadow: 2px 2px 8px rgba(0,0,0,.1);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.category-wrap h3 {
+  font-size: 16px;
+  color: rgba(0,0,0,.6);
+  margin: 0 0 10px;
+  padding: 0 5px;
+  position: relative;
+}
+.category-wrap h3:after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: #80C8A0;
+  position: absolute;
+  right: 5px;
+  bottom: 2px;
+  box-shadow: -8px -8px #80C8A0, 0 -8px #80C8A0, -8px 0 #80C8A0;
+}
+.category-wrap ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(0,0,0,.3);
+}
+.category-wrap li {margin: 12px 0 0 0px;}
+.category-wrap a {
+  text-decoration: none;
+  display: block;
+  font-size: 13px;
+  color: rgba(0,0,0,.6);
+  padding: 5px;
+  position: relative;
+  transition: .3s linear;
+}
+.category-wrap a:after {
+  content:"\f18e";
+  font-family: FontAwesome;
+  position: absolute;
+  right: 5px;
+  color: white;
+  transition: .2s linear;
+}
+.category-wrap a:hover {
+  background: #80C8A0;
+  color: white;
+}
+
+/*----------------------------*/
+.vertmenu {
+margin: 0 20px;
+font-family: 'Open Sans', sans-serif;
+}
+.vertmenu ul {
+list-style: none;
+margin: 0;
+padding: 0;
+}
+.vertmenu ul li {
+position: relative;
+margin: 0;
+line-height: 30px;
+text-transform: uppercase;
+}
+.vertmenu ul li li {
+padding-left:20px;
+}
+.vertmenu .subCat, .chka {
+top: 0;
+right: 0px;
+position: absolute;
+cursor: pointer;
+}
+.vertmenu .subCat.plus,
+.chka:before,
+.vertmenu .subCat.minus,
+.subCat:checked + .chka:before {
+content: '+';
+font-size: 26px;
+color: #1266B1;
+font-weight: bold;
+font-family: Courier;
+}
+.vertmenu .subCat.minus, .subCat:checked + .chka:before {
+content: '-';
+}
+.vertmenu a {
+color: #477AB9;
+font-size: 16px;
+font-weight:bold;
+text-decoration:none;
+}
+.vertmenu ul li li a {
+color: #666;
+font-size: 15px;
+font-weight:normal;
+text-decoration:none;
+}
+.vertmenu a.active {
+color: #00B1EC;
+}
+.vertmenu a:hover {
+text-decoration: none;
+color: #000 !important;
+}
+.vertmenu > ul > li ul {
+display: none;
+}
+.vertmenu > ul > li a.active + span + ul {
+display: block !important;
+}
+.vertmenu > ul > li .subCat:checked ~ ul {
+display: block !important;
+}
+.vertmenu input[type=checkbox].subCat {
+display:none;
+}
+.vertmenu ul li li a:before {
+content: '\203A';
+font-size: 20px;
+padding-right: 6px;
+color: #666;
+font-weight: bold;
+}
+.vertmenu > ul li li a:hover:before {
+color: #1266B1;
+}
+

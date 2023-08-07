@@ -86,14 +86,16 @@
         </nav>
     </header>
 
-    <section class="row">
+    <section class="row gy-5">
         <!-- gy-3 vertical padding; gx-3 horizontal offset -->
         <div class="col-md-2 d-none d-md-block">
             <!-- Отображать этот блок только со средней точки останова (md) и выше -->
-            <div class="">
-                <h3>Menu posts</h3>
+            <nav class="vert_nav">
                 {% menu_cat_subcat as menu_cs %}
                 <ul>
+                    <li>
+                        <a href="{% url 'home' %}">Все посты</a>
+                    </li>
                     {% for category in menu_cs.categories %}
                     <li>
                         <a href="{% url 'home' category_slug=category.slug %}">{{ category.name }}</a>
@@ -101,27 +103,132 @@
                             {% for subcategory in category.subcategories.all %}
                             <li>
                                 <a href="{% url 'home' category_slug=category.slug subcategory_slug=subcategory.slug %}">
-                                    {{ subcategory.name }}</a>
+                                    {{ subcategory.name}}
+                                </a>
                             </li>
                             {% endfor %}
                         </ul>
                     </li>
                     {% endfor %}
                 </ul>
-            </div>
-            <div class="block">Ad block</div>
+            </nav>
+
             <div class="block">block-weather</div>
             <div class="block">Ad block</div>
         </div>
         <div class="col-12 col-md-8">
-            <!-- Use full width for very small (xs) and small (sm) breakpoints,
-            and 8 columns from the medium (md) breakpoint and above -->
             {% block content %} {% endblock %}
         </div>
         <div class="col-md-2 d-none d-md-block">
             <!-- Display this block only from the medium breakpoint (md) and above -->
-            <div class="block">Ad block</div>
-            <div class="block">Horoscope block</div>
+
+
+            <div class="vertmenu">
+                <ul>
+                    <li>
+                        <a class="active" href="#">Пункт меню 1</a>
+                        <input type="checkbox" class="subCat" id="1" checked="checked"/>
+                        <label class="chka" for="1"></label>
+                        <ul style="display:none">
+                            <li>
+                                <a class="active" href="#">Пункт меню 1.1</a>
+                                <input type="checkbox" class="subCat" id="1.1" checked="checked"/>
+                                <label class="chka" for="1.1"></label>
+                                <ul style="display:none">
+                                    <li>
+                                        <a href="#">Пункт меню 1.1.1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Пункт меню 1.1.2</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Пункт меню 1.1.3</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Пункт меню 1.2</a>
+                            </li>
+                            <li>
+                                <a href="#">Пункт меню 1.3</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Пункт меню 2</a>
+                        <input type="checkbox" class="subCat" id="2"/>
+                        <label class="chka" for="2"></label>
+                        <ul style="display:none">
+                            <li>
+                                <a href="#">Пункт меню 2.1</a>
+                            </li>
+                            <li>
+                                <a href="#">Пункт меню 2.2</a>
+                            </li>
+                            <li>
+                                <a href="#">Пункт меню 2.3</a>
+                            </li>
+                            <li>
+                                <a href="#">Пункт меню 2.4</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Пункт меню 3</a>
+                        <input type="checkbox" class="subCat" id="3"/>
+                        <label class="chka" for="3"></label>
+                        <ul style="display:none">
+                            <li>
+                                <a href="#">Пункт меню 3.1</a>
+                            </li>
+                            <li>
+                                <a href="#">Пункт меню 3.2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Пункт меню 4</a>
+                        <input type="checkbox" class="subCat" id="4"/>
+                        <label class="chka" for="4"></label>
+                        <ul style="display:none">
+                            <li>
+                                <a href="#">Пункт меню 4.1</a>
+                            </li>
+                            <li>
+                                <a href="#">Пункт меню 4.2</a>
+                            </li>
+                            <li>
+                                <a href="#">Пункт меню 4.3</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div>
+                <ul class="metro">
+                    <li><a href="">Элемент списка</a>
+                        <ul>
+                            <li><a href="">Элемент вложенного списка</a></li>
+                            <li><a href="">Элемент вложенного списка</a></li>
+                            <li><a href="">Элемент вложенного списка</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Элемент списка</a></li>
+                    <li><a href="">Элемент списка</a></li>
+                </ul>
+            </div>
+            <div class="category-wrap">
+                <h3>Категории</h3>
+                <ul>
+                    <li><a href="">Дизайн</a></li>
+                    <li><a href="">Фотошоп</a></li>
+                    <li><a href="">Книги</a></li>
+                    <li><a href="">Журналы</a></li>
+                    <li><a href="">Картинки</a></li>
+                </ul>
+            </div>
             <div class="block">Ad block</div>
             <div class="block">block-Currency Rates</div>
         </div>

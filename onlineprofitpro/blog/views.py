@@ -9,9 +9,16 @@ def contact(request):
     return HttpResponse("<h1>Обратная связь</h1>")
 
 
+# def about(request):
+#     return HttpResponse("<h1>О сайте</h1>")
 def about(request):
-    return HttpResponse("<h1>О сайте</h1>")
-
+    # Add any data or context you want to pass to the template
+    # For example:
+    context = {
+        'page_title': 'О блоге',
+        'page_content': 'Это о содержании страницы "О сайте".',
+    }
+    return render(request, 'blog/about.html', context)
 
 def guest_post(request):
     return HttpResponse("<h1>Гостевой пост</h1>")
@@ -33,7 +40,7 @@ def home(request, category_slug=None, subcategory_slug=None):
     # Get all posts sorted in reverse order of update date
     posts = ModelPosts.objects.filter(is_published=True).order_by('-time_update')
 
-
+    # Filter posts based on the selected category and subcategory
     if category_slug:
         selected_category = get_object_or_404(ModelCategories, slug=category_slug)
         posts = posts.filter(subcat__category=selected_category)
@@ -41,6 +48,11 @@ def home(request, category_slug=None, subcategory_slug=None):
         if subcategory_slug:
             selected_subcategory = get_object_or_404(ModelSubcategories, slug=subcategory_slug, category=selected_category)
             posts = posts.filter(subcat=selected_subcategory)
+        else:
+            selected_subcategory = None
+    else:
+        selected_category = None
+        selected_subcategory = None
 
     # Create a list to store the first part of each post with its picture
     post_previews = []
@@ -60,12 +72,10 @@ def home(request, category_slug=None, subcategory_slug=None):
     # Pass the data to the template
     context = {
         'post_previews': post_previews,
-        'title': "Главная страница",  # Set the desired title for the home page
+        'title': "Home", # Set the desired title for the home page
     }
 
     return render(request, 'blog/home.html', context)
-
-
 
 
 def post_detail(request, slug):
