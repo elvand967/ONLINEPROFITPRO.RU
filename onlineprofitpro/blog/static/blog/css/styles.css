@@ -119,7 +119,16 @@ footer {
     }*/
 /*++++++++++++++++++++++++++++++++++++*/
 
+/*+++++ стилизация форм +++++*/
+/* Adjust input and select width to 100% */
+.form-control, .form-select, .form-textarea {
+    width: 100%;
+    }
 
+/* Add padding between input fields */
+.input-wrapper {
+    padding: 5px;
+    }
 /*=======================================*/
 .metro {
   list-style: none;

@@ -11,7 +11,7 @@ register = template.Library()
 menu = [{'title': "Главная", 'url_name': 'home'},
         {'title': "О нас", 'url_name': 'about'},
         {'title': "Обратная связь", 'url_name': 'contact'},
-        {'title': "Гостевой пост", 'url_name': 'guest_post'},
+        {'title': "Добавить пост", 'url_name': 'addpage'},
 ]
 #  определим функцию def get_horizontal_menu(), которая будет выполняться при вызове нашего тега из шаблона
 #  и свяжем эту функцию с тегом, или, превратим эту функцию в тег, используя специальный декоратор, доступный через переменную register:

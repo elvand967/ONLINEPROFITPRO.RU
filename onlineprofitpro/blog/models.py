@@ -45,6 +45,10 @@ class ModelPosts(models.Model):
     time_update = models.DateTimeField(auto_now=True, verbose_name="Время изменения")
     is_published = models.BooleanField(default=True, verbose_name="Публикация")
     subcat = models.ForeignKey('ModelSubcategories', on_delete=models.PROTECT, verbose_name="ПодКатегории")
+    # User information
+    user_first_name = models.CharField(max_length=30, blank=True, null=True, verbose_name="User First Name")
+    user_last_name = models.CharField(max_length=30, blank=True, null=True, verbose_name="User Last Name")
+    user_username = models.CharField(max_length=150, blank=True, null=True, verbose_name="User Username")
 
     def __str__(self):
         return self.title
