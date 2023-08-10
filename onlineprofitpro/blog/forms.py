@@ -47,9 +47,14 @@ class PostContentForm(forms.ModelForm):
         self.fields['css_text'].queryset = ModelCssClass.objects.filter(css_type='text')
         self.fields['css_media'].queryset = ModelCssClass.objects.filter(css_type='media')
 
+        self.fields['media_file'].required = False
+        self.fields['content_text'].required = False
+
     class Meta:
         model = ModelPostContent
         fields = ['media_file', 'css_media', 'css_text', 'content_text']
+
+
 
 PostContentFormset = formset_factory(PostContentForm, extra=1, can_delete=True)
 

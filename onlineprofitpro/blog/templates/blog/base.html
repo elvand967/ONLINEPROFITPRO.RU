@@ -2,31 +2,17 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     {% load static %} {% load blog_tags %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>{% block title %}{{ title }}{% endblock %}</title>
-    <link
-            rel="shortcut icon"
-            href="{% static 'blog/img/main.ico' %}"
-            type="image/x-icon"
-    />
+    <link rel="shortcut icon" href="{% static 'blog/img/main.ico' %}" type="image/x-icon"/>
     <link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}"/>
-    <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"/>
 
-    <link
-            type="text/css"
-            href="{% static 'admin/css/custom_admin.css' %}"
-            rel="stylesheet"
-    />
-    <link
-            type="text/css"
-            href="{% static 'blog/css/styles.css' %}"
-            rel="stylesheet"
-    />
+    <link type="text/css" href="{% static 'admin/css/custom_admin.css' %}" rel="stylesheet"/>
+    <link type="text/css" href="{% static 'blog/css/styles.css' %}" rel="stylesheet"/>
 </head>
 
 <body>
@@ -37,39 +23,24 @@
                 <!-- Logo -->
                 <div class="col-sm-6 col-md-6 col-lg-2 d-flex align-items-center">
                     <a class="navbar-brand" href="{% url 'home' %}">
-                        <img
-                                src="{% static 'blog/img/logo.png' %}"
-                                alt="Elvand"
-                                width="50"
-                                height="50"
-                        />
+                        <img src="{% static 'blog/img/logo.png' %}" alt="Elvand" width="50" height="50"/>
                     </a>
                 </div>
                 <!-- Menu Links and Collapsed Menu -->
-                <div
-                        class="col-sm-6 col-md-6 col-lg-6 d-flex align-items-center justify-content-end"
-                >
+                <div class="col-sm-6 col-md-6 col-lg-6 d-flex align-items-center justify-content-end">
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         {% get_horizontal_menu as horizontal_menu %}
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             {% for item in horizontal_menu %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url item.url_name %}"
-                                >{{ item.title }}</a
-                                >
+                                <a class="nav-link" href="{% url item.url_name %}">{{ item.title }}</a>
                             </li>
                             {% endfor %}
                         </ul>
                     </div>
-                    <button
-                            class="navbar-toggler"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent"
-                            aria-controls="navbarSupportedContent"
-                            aria-expanded="false"
-                            aria-label="Toggle navigation"
-                    >
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 </div>
@@ -81,11 +52,8 @@
                             {% if user.is_authenticated %}
                             <ul class="navbar-nav flex-row justify-content-start">
                                 <li class="nav-item">
-                                    <a
-                                            class="nav-link"
-                                            href="{% url 'user_profile' user.username %}"
-                                    >{{ user.username }}&nbsp;</a
-                                    >
+                                    <a class="nav-link"
+                                       href="{% url 'user_profile' user.username %}">{{ user.username }}&nbsp;</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
@@ -94,14 +62,10 @@
                             {% else %}
                             <ul class="navbar-nav flex-row justify-content-start">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'login' %}"
-                                    >Login&nbsp;</a
-                                    >
+                                    <a class="nav-link" href="{% url 'login' %}">Login&nbsp;</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'register' %}"
-                                    >Register</a
-                                    >
+                                    <a class="nav-link" href="{% url 'register' %}">Register</a>
                                 </li>
                             </ul>
                             {% endif %}
@@ -109,12 +73,8 @@
                         <div class="col-sm-12 col-md-5 col-lg-6">
                             <!-- Search form -->
                             <form class="d-flex me-auto" role="search">
-                                <input
-                                        class="form-control me-2"
-                                        type="search"
-                                        placeholder="Поиск"
-                                        aria-label="Search"
-                                />
+                                <input class="form-control me-2" type="search" placeholder="Поиск"
+                                       aria-label="Search"/>
                                 <button class="btn btn-outline-success" type="submit">
                                     Поиск
                                 </button>
@@ -127,38 +87,45 @@
     </header>
 
     <section class="row g-5">
-        <div class="col-md-2">
-            <!-- Отображать этот блок только со средней точки останова (md) и выше -->
-            <nav class="vert_nav">
-                {% menu_cat_subcat as menu_cs %}
-                <ul>
-                    <li>
-                        <a href="{% url 'home' %}">Все посты</a>
-                    </li>
-                    {% for category in menu_cs.categories %}
-                    <li>
-                        <a href="{% url 'home' category_slug=category.slug %}"
-                        >{{ category.name }}</a
-                        >
-                        <ul>
-                            {% for subcategory in category.subcategories.all %}
-                            <li>
-                                <a
-                                        href="{% url 'home' category_slug=category.slug subcategory_slug=subcategory.slug %}"
-                                >
-                                    {{ subcategory.name}}
-                                </a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    {% endfor %}
-                </ul>
+        <div class="col-md-3">
+            <!-- Menu Links Vertical and Collapsed Menu -->
+            <nav class="navbar navbar-expand-lg navbar-light vert_nav">
+                <div class="container-fluid ">
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="collapse navbar-collapse" id="navbarVertical">
+                            {% menu_cat_subcat as menu_cs %}
+                            <ul>
+                                <li>
+                                    <a href="{% url 'home' %}">Все посты</a>
+                                </li>
+                                {% for category in menu_cs.categories %}
+                                <li>
+                                    <a href="{% url 'home' category_slug=category.slug %}">{{ category.name }}</a>
+                                    <ul>
+                                        {% for subcategory in category.subcategories.all %}
+                                        <li>
+                                            <a href="{% url 'home' category_slug=category.slug subcategory_slug=subcategory.slug %}">
+                                                {{ subcategory.name}}
+                                            </a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarVertical" aria-controls="navbarVertical"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                </div>
             </nav>
-            <div class="block d-none d-md-block">Ad block</div>
         </div>
-        <div class="col-md-8">{% block content %} {% endblock %}</div>
-        <div class="col-md-2 gy-5">
+
+        <div class="col-md-6">{% block content %} {% endblock %}</div>
+        <div class="col-md-3 gy-5">
             <div class="block">block</div>
             <div class="block">block</div>
             <div class="block">block</div>
@@ -176,4 +143,5 @@
 </div>
 <script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
 </body>
+
 </html>

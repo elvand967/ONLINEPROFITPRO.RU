@@ -90,7 +90,7 @@ class ModelCssClass(models.Model):
 
 class ModelPostContent(models.Model):
     post = models.ForeignKey(ModelPosts, on_delete=models.CASCADE, related_name='content_parts')
-    content_text = models.TextField(blank=True, verbose_name="Часть текста поста")
+    content_text = models.TextField(blank=True, null=True, verbose_name="Часть текста поста")
     css_text = models.ForeignKey(
         ModelCssClass,
         on_delete=models.SET_NULL,

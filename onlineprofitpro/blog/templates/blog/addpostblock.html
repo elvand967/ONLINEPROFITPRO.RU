@@ -9,7 +9,7 @@
 
 {% for part in post.content_parts.all %}
 <div class="{{ part.css_text.class_css }}{% if part.css_media %} with-image{% endif %}">
-     {% if part.css_media %}
+     {% if part.css_media and part.media_file %}
      <img src="{{ part.media_file.url }}" alt="Image" class="{{ part.css_media.class_css }}">
      {% endif %}
      {% if part.css_text %}
