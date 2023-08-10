@@ -7,7 +7,8 @@ min-height: 100%;
 
 .header_post {
 background-color: var(--color11);
-padding: 8px 0;
+border-radius: 7px;
+padding: 8px;
 }
 
 .image-container {
@@ -33,10 +34,6 @@ padding: 8px 0;
   background-color: var(--color11);
   border: 1px solid var(--color25);
   color: var(--color16);
-}
-
-header {
-  padding: 10px 0;
 }
 
 footer,
@@ -87,6 +84,16 @@ footer {
 
 /*++++++++++++++++++++++++++++++++++++*/
 /*+++++ Вертикальное меню Постов +++++*/
+.vert_nav {
+    background:var(--color15);
+    /*border: 1px solid var(--color21);*/
+    border-radius: 7px;
+    /* box-shadow: 0 0 10px rgba(0,0,0,0.5); Параметры тени */
+    box-shadow: 0px 10px 15px 2px rgba(0, 0, 0, 0.25);
+    padding: 5px 0 10px 0;
+    margin: 0 0 20px;/**/
+    }
+
 
 /* Стилизация ссылок на любой контрастный цвет. */
 .vert_nav a {
@@ -121,202 +128,11 @@ footer {
 
 /*+++++ стилизация форм +++++*/
 /* Adjust input and select width to 100% */
-.form-control, .form-select, .form-textarea {
+.form-control, .form-select,
+.form-textarea,
+.form-textinput, .fileinpu{
     width: 100%;
     }
 
-/* Add padding between input fields */
-.input-wrapper {
-    padding: 5px;
-    }
+
 /*=======================================*/
-.metro {
-  list-style: none;
-  padding: 0;
-  margin: 30px 0 0 50px;
-  border-left: 5px solid #DAE4F1;
-}
-.metro li {line-height: 2em;}
-.metro ul {
-  margin: 20px 0 20px 15px;
-  padding: 0;
-  border: none;
-  list-style: none;
-}
-.metro ul:before, .metro ul:after {
-  content: "";
-  width: 5px;
-  height: 28px;
-  background: #DAE4F1;
-  position: relative;
-  display: block;
-  left: -9px;
-}
-.metro ul:before {
-  transform: rotate(-45deg);
-  margin-top: -15px;
-}
-.metro ul:after {
-  transform: rotate(45deg);
-  bottom: -20px;
-}
-.metro ul li {border-left: 5px solid #DAE4F1;}
-.metro ul li:first-child {
-  margin-top: -5px;
-  padding-top: 5px;
-}
-.metro ul li:last-child {
-  padding-bottom: 9px;
-  margin-bottom: -25px;
-}
-.metro a {
-  text-decoration: none;
-  display: block;
-  font-family: 'Noto Sans', sans-serif;
-  color: #4A4B4D;
-}
-.metro a:before {
-  content: "";
-  display: inline-block;
-  background: #CA682D;
-  width: 12px;
-  height: 12px;
-  left: -9px;
-  position: relative;
-  border-radius: 50%;
-  margin-right: .5em;
-}
-
-.category-wrap {
-  padding: 15px;
-  background: white;
-  width: 200px;
-  box-shadow: 2px 2px 8px rgba(0,0,0,.1);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-.category-wrap h3 {
-  font-size: 16px;
-  color: rgba(0,0,0,.6);
-  margin: 0 0 10px;
-  padding: 0 5px;
-  position: relative;
-}
-.category-wrap h3:after {
-  content: "";
-  width: 6px;
-  height: 6px;
-  background: #80C8A0;
-  position: absolute;
-  right: 5px;
-  bottom: 2px;
-  box-shadow: -8px -8px #80C8A0, 0 -8px #80C8A0, -8px 0 #80C8A0;
-}
-.category-wrap ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  border-top: 1px solid rgba(0,0,0,.3);
-}
-.category-wrap li {margin: 12px 0 0 0px;}
-.category-wrap a {
-  text-decoration: none;
-  display: block;
-  font-size: 13px;
-  color: rgba(0,0,0,.6);
-  padding: 5px;
-  position: relative;
-  transition: .3s linear;
-}
-.category-wrap a:after {
-  content:"\f18e";
-  font-family: FontAwesome;
-  position: absolute;
-  right: 5px;
-  color: white;
-  transition: .2s linear;
-}
-.category-wrap a:hover {
-  background: #80C8A0;
-  color: white;
-}
-
-/*----------------------------*/
-.vertmenu {
-margin: 0 20px;
-font-family: 'Open Sans', sans-serif;
-}
-.vertmenu ul {
-list-style: none;
-margin: 0;
-padding: 0;
-}
-.vertmenu ul li {
-position: relative;
-margin: 0;
-line-height: 30px;
-text-transform: uppercase;
-}
-.vertmenu ul li li {
-padding-left:20px;
-}
-.vertmenu .subCat, .chka {
-top: 0;
-right: 0px;
-position: absolute;
-cursor: pointer;
-}
-.vertmenu .subCat.plus,
-.chka:before,
-.vertmenu .subCat.minus,
-.subCat:checked + .chka:before {
-content: '+';
-font-size: 26px;
-color: #1266B1;
-font-weight: bold;
-font-family: Courier;
-}
-.vertmenu .subCat.minus, .subCat:checked + .chka:before {
-content: '-';
-}
-.vertmenu a {
-color: #477AB9;
-font-size: 16px;
-font-weight:bold;
-text-decoration:none;
-}
-.vertmenu ul li li a {
-color: #666;
-font-size: 15px;
-font-weight:normal;
-text-decoration:none;
-}
-.vertmenu a.active {
-color: #00B1EC;
-}
-.vertmenu a:hover {
-text-decoration: none;
-color: #000 !important;
-}
-.vertmenu > ul > li ul {
-display: none;
-}
-.vertmenu > ul > li a.active + span + ul {
-display: block !important;
-}
-.vertmenu > ul > li .subCat:checked ~ ul {
-display: block !important;
-}
-.vertmenu input[type=checkbox].subCat {
-display:none;
-}
-.vertmenu ul li li a:before {
-content: '\203A';
-font-size: 20px;
-padding-right: 6px;
-color: #666;
-font-weight: bold;
-}
-.vertmenu > ul li li a:hover:before {
-color: #1266B1;
-}
-

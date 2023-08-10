@@ -44,7 +44,7 @@ def add_page(request):
         form = AddPostForm()
         formset = PostContentFormset(prefix='content')
 
-    return render(request, 'blog/addpage.html', {'title': 'Add an article', 'form': form, 'formset': formset})
+    return render(request, 'blog/addpage.html', {'title': 'Добавить "Гостевой" пост', 'form': form, 'formset': formset})
 
 
 def add_post_block(request, post_slug):

@@ -3,14 +3,11 @@
 {% extends 'blog/base.html' %}
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
-<div class="row gy-2">
-    {% for preview in post_previews %}
-    <!-- Post block -->
 
+    {% for preview in post_previews %}
     <div class="row header_post">
         <div class="col-md-6 col-sm-12 text-start">{{ preview.post.subcat }}</div>
         <div class="col-md-6 text-end col-sm-12 text-start">{{ preview.post.time_update}}</div>
-
     </div>
     <!-- Post text and thumbnail -->
     <div class="image-container">
@@ -25,13 +22,10 @@
         {%endautoescape%}
         {% endif %}
     </div>
-    <!-- "Read post" button -->
     <div class="text-end">
         <a href="{% url 'post_detail' preview.post.slug %}" class="btn mt-2"
         >Читать пост</a>
-    <hr>
     </div>
-
+    <hr>
     {% endfor %}
-</div>
 {%endblock%}

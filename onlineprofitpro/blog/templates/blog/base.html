@@ -2,316 +2,178 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     {% load static %} {% load blog_tags %}
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>{% block title %}{{ title }}{% endblock %}</title>
     <link
-      rel="shortcut icon"
-      href="{% static 'blog/img/main.ico' %}"
-      type="image/x-icon"
+            rel="shortcut icon"
+            href="{% static 'blog/img/main.ico' %}"
+            type="image/x-icon"
     />
-    <link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}"/>
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
     />
 
     <link
-      type="text/css"
-      href="{% static 'admin/css/custom_admin.css' %}"
-      rel="stylesheet"
+            type="text/css"
+            href="{% static 'admin/css/custom_admin.css' %}"
+            rel="stylesheet"
     />
     <link
-      type="text/css"
-      href="{% static 'blog/css/styles.css' %}"
-      rel="stylesheet"
+            type="text/css"
+            href="{% static 'blog/css/styles.css' %}"
+            rel="stylesheet"
     />
-  </head>
+</head>
 
-  <body>
-    <div class="container-fluid mx-auto align-self-center">
-      <header>
+<body>
+<div class="container-fluid mx-auto align-self-center">
+    <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
-          <div class="container-fluid">
-            <!-- Logo -->
-            <div class="col-sm-6 col-md-6 col-lg-2 d-flex align-items-center">
-              <a class="navbar-brand" href="{% url 'home' %}">
-                <img
-                  src="{% static 'blog/img/logo.png' %}"
-                  alt="Elvand"
-                  width="50"
-                  height="50"
-                />
-              </a>
-            </div>
-            <!-- Menu Links and Collapsed Menu -->
-            <div
-              class="col-sm-6 col-md-6 col-lg-6 d-flex align-items-center justify-content-end"
-            >
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                {% get_horizontal_menu as horizontal_menu %}
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  {% for item in horizontal_menu %}
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url item.url_name %}"
-                      >{{ item.title }}</a
-                    >
-                  </li>
-                  {% endfor %}
-                </ul>
-              </div>
-              <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span class="navbar-toggler-icon"></span>
-              </button>
-            </div>
-            <!-- Authentication Links and Search Form -->
-            <div class="col-md-12 col-lg-4">
-              <div class="row">
-                <!-- Authentication links -->
-                <div class="col-sm-12 col-md-7 col-lg-6">
-                  {% if user.is_authenticated %}
-                  <ul class="navbar-nav flex-row justify-content-start">
-                    <li class="nav-item">
-                      <a
-                        class="nav-link"
-                        href="{% url 'user_profile' user.username %}"
-                        >{{ user.username }}&nbsp;</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                    </li>
-                  </ul>
-                  {% else %}
-                  <ul class="navbar-nav flex-row justify-content-start">
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'login' %}"
-                        >Login&nbsp;</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'register' %}"
-                        >Register</a
-                      >
-                    </li>
-                  </ul>
-                  {% endif %}
-                </div>
-                <div class="col-sm-12 col-md-5 col-lg-6">
-                  <!-- Search form -->
-                  <form class="d-flex me-auto" role="search">
-                    <input
-                      class="form-control me-2"
-                      type="search"
-                      placeholder="Поиск"
-                      aria-label="Search"
-                    />
-                    <button class="btn btn-outline-success" type="submit">
-                      Поиск
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
-      </header>
-
-      <section class="row gy-5">
-        <!-- gy-3 vertical padding; gx-3 horizontal offset -->
-        <div class="col-md-2 d-none d-md-block">
-          <!-- Отображать этот блок только со средней точки останова (md) и выше -->
-          <nav class="vert_nav">
-            {% menu_cat_subcat as menu_cs %}
-            <ul>
-              <li>
-                <a href="{% url 'home' %}">Все посты</a>
-              </li>
-              {% for category in menu_cs.categories %}
-              <li>
-                <a href="{% url 'home' category_slug=category.slug %}"
-                  >{{ category.name }}</a
-                >
-                <ul>
-                  {% for subcategory in category.subcategories.all %}
-                  <li>
-                    <a
-                      href="{% url 'home' category_slug=category.slug subcategory_slug=subcategory.slug %}"
-                    >
-                      {{ subcategory.name}}
+            <div class="container-fluid">
+                <!-- Logo -->
+                <div class="col-sm-6 col-md-6 col-lg-2 d-flex align-items-center">
+                    <a class="navbar-brand" href="{% url 'home' %}">
+                        <img
+                                src="{% static 'blog/img/logo.png' %}"
+                                alt="Elvand"
+                                width="50"
+                                height="50"
+                        />
                     </a>
-                  </li>
-                  {% endfor %}
-                </ul>
-              </li>
-              {% endfor %}
-            </ul>
-          </nav>
+                </div>
+                <!-- Menu Links and Collapsed Menu -->
+                <div
+                        class="col-sm-6 col-md-6 col-lg-6 d-flex align-items-center justify-content-end"
+                >
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        {% get_horizontal_menu as horizontal_menu %}
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            {% for item in horizontal_menu %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url item.url_name %}"
+                                >{{ item.title }}</a
+                                >
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <button
+                            class="navbar-toggler"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation"
+                    >
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <!-- Authentication Links and Search Form -->
+                <div class="col-md-12 col-lg-4">
+                    <div class="row">
+                        <!-- Authentication links -->
+                        <div class="col-sm-12 col-md-7 col-lg-6">
+                            {% if user.is_authenticated %}
+                            <ul class="navbar-nav flex-row justify-content-start">
+                                <li class="nav-item">
+                                    <a
+                                            class="nav-link"
+                                            href="{% url 'user_profile' user.username %}"
+                                    >{{ user.username }}&nbsp;</a
+                                    >
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                                </li>
+                            </ul>
+                            {% else %}
+                            <ul class="navbar-nav flex-row justify-content-start">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'login' %}"
+                                    >Login&nbsp;</a
+                                    >
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'register' %}"
+                                    >Register</a
+                                    >
+                                </li>
+                            </ul>
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-12 col-md-5 col-lg-6">
+                            <!-- Search form -->
+                            <form class="d-flex me-auto" role="search">
+                                <input
+                                        class="form-control me-2"
+                                        type="search"
+                                        placeholder="Поиск"
+                                        aria-label="Search"
+                                />
+                                <button class="btn btn-outline-success" type="submit">
+                                    Поиск
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-          <div class="block">block-weather</div>
-          <div class="block">Ad block</div>
-        </div>
-        <div class="col-12 col-md-8">{% block content %} {% endblock %}</div>
-        <div class="col-md-2 d-none d-md-block">
-          <!-- Display this block only from the medium breakpoint (md) and above -->
-
-          <div class="vertmenu">
-            <ul>
-              <li>
-                <a class="active" href="#">Пункт меню 1</a>
-                <input
-                  type="checkbox"
-                  class="subCat"
-                  id="1"
-                  checked="checked"
-                />
-                <label class="chka" for="1"></label>
-                <ul style="display: none">
-                  <li>
-                    <a class="active" href="#">Пункт меню 1.1</a>
-                    <input
-                      type="checkbox"
-                      class="subCat"
-                      id="1.1"
-                      checked="checked"
-                    />
-                    <label class="chka" for="1.1"></label>
-                    <ul style="display: none">
-                      <li>
-                        <a href="#">Пункт меню 1.1.1</a>
-                      </li>
-                      <li>
-                        <a href="#">Пункт меню 1.1.2</a>
-                      </li>
-                      <li>
-                        <a href="#">Пункт меню 1.1.3</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a href="#">Пункт меню 1.2</a>
-                  </li>
-                  <li>
-                    <a href="#">Пункт меню 1.3</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href="#">Пункт меню 2</a>
-                <input type="checkbox" class="subCat" id="2" />
-                <label class="chka" for="2"></label>
-                <ul style="display: none">
-                  <li>
-                    <a href="#">Пункт меню 2.1</a>
-                  </li>
-                  <li>
-                    <a href="#">Пункт меню 2.2</a>
-                  </li>
-                  <li>
-                    <a href="#">Пункт меню 2.3</a>
-                  </li>
-                  <li>
-                    <a href="#">Пункт меню 2.4</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href="#">Пункт меню 3</a>
-                <input type="checkbox" class="subCat" id="3" />
-                <label class="chka" for="3"></label>
-                <ul style="display: none">
-                  <li>
-                    <a href="#">Пункт меню 3.1</a>
-                  </li>
-                  <li>
-                    <a href="#">Пункт меню 3.2</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href="#">Пункт меню 4</a>
-                <input type="checkbox" class="subCat" id="4" />
-                <label class="chka" for="4"></label>
-                <ul style="display: none">
-                  <li>
-                    <a href="#">Пункт меню 4.1</a>
-                  </li>
-                  <li>
-                    <a href="#">Пункт меню 4.2</a>
-                  </li>
-                  <li>
-                    <a href="#">Пункт меню 4.3</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <ul class="metro">
-              <li>
-                <a href="">Элемент списка</a>
+    <section class="row g-5">
+        <div class="col-md-2">
+            <!-- Отображать этот блок только со средней точки останова (md) и выше -->
+            <nav class="vert_nav">
+                {% menu_cat_subcat as menu_cs %}
                 <ul>
-                  <li><a href="">Элемент вложенного списка</a></li>
-                  <li><a href="">Элемент вложенного списка</a></li>
-                  <li><a href="">Элемент вложенного списка</a></li>
+                    <li>
+                        <a href="{% url 'home' %}">Все посты</a>
+                    </li>
+                    {% for category in menu_cs.categories %}
+                    <li>
+                        <a href="{% url 'home' category_slug=category.slug %}"
+                        >{{ category.name }}</a
+                        >
+                        <ul>
+                            {% for subcategory in category.subcategories.all %}
+                            <li>
+                                <a
+                                        href="{% url 'home' category_slug=category.slug subcategory_slug=subcategory.slug %}"
+                                >
+                                    {{ subcategory.name}}
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endfor %}
                 </ul>
-              </li>
-              <li><a href="">Элемент списка</a></li>
-              <li><a href="">Элемент списка</a></li>
-            </ul>
-          </div>
-          <div class="category-wrap">
-            <h3>Категории</h3>
-            <ul>
-              <li><a href="">Дизайн</a></li>
-              <li><a href="">Фотошоп</a></li>
-              <li><a href="">Книги</a></li>
-              <li><a href="">Журналы</a></li>
-              <li><a href="">Картинки</a></li>
-            </ul>
-          </div>
-          <div class="block">Ad block</div>
-          <div class="block">block-Currency Rates</div>
+            </nav>
+            <div class="block d-none d-md-block">Ad block</div>
         </div>
-      </section>
+        <div class="col-md-8">{% block content %} {% endblock %}</div>
+        <div class="col-md-2 gy-5">
+            <div class="block">block</div>
+            <div class="block">block</div>
+            <div class="block">block</div>
+        </div>
+    </section>
 
-      <footer id="footer">
+    <footer id="footer">
         footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer-footer
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
         rerum porro praesentium incidunt deserunt dolor unde. Nisi doloribus
         consectetur id eveniet alias possimus vel a, quasi ex vitae repellendus
         voluptate sint commodi, sed itaque necessitatibus delectus fugiat, ullam
         asperiores. Quam, fugiat. Repellendus sequi vel, quisquam facilis, at
-        soluta aliquid ex possimus voluptatibus dolor quibusdam molestiae et
-        nesciunt ullam, ducimus adipisci. Beatae, atque in dolores aliquam
-        dolorem perferendis possimus animi exercitationem eveniet blanditiis
-        tempora magnam distinctio voluptate nobis, commodi quia quod laboriosam
-        nam veritatis porro assumenda. Suscipit, repellendus. Magni, eligendi.
-        Eum minima eligendi impedit, sint libero hic nulla voluptatibus quidem
-        ratione corrupti odio praesentium obcaecati expedita dignissimos quia
-        tenetur repellendus accusamus ut. Maiores, tempore? Temporibus corrupti
-        provident commodi! Fuga, beatae. Laudantium architecto impedit provident
-        ab distinctio molestiae aspernatur laboriosam, ut quaerat tempora,
-        officiis quidem quasi! Reiciendis laborum impedit atque consequuntur
-        quia est voluptas quae soluta, tempore accusamus dolore aliquid! Libero
-        consequatur reprehenderit optio iusto suscipit ea quisquam aspernatur
-        iure molestias, ipsa dicta numquam sunt laudantium sapiente cum quis
-        eligendi! Sed autem nisi nulla repellendus, nobis ullam quis debitis
-        doloremque temporibus necessitatibus illo ipsam corporis corrupti quo
-        magnam veniam totam exercitationem vero velit suscipit a dignissimos
-        iste excepturi. Quis sint odit vero.
-      </footer>
-    </div>
-    <script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
-  </body>
+    </footer>
+</div>
+<script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
+</body>
 </html>

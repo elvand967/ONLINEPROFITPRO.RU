@@ -49,7 +49,7 @@ class PostContentForm(forms.ModelForm):
 
     class Meta:
         model = ModelPostContent
-        fields = ['content_text', 'css_text', 'media_file', 'css_media']
+        fields = ['media_file', 'css_media', 'css_text', 'content_text']
 
 PostContentFormset = formset_factory(PostContentForm, extra=1, can_delete=True)
 
