@@ -27,11 +27,11 @@ class CustomFileInput(FileInput):
 
 class AddPostForm(forms.ModelForm):
     title = forms.CharField(widget=CustomTextInput())
-    slug = forms.SlugField(widget=CustomTextInput())
+    # slug = forms.SlugField(widget=CustomTextInput())
     subcat = forms.ModelChoiceField(queryset=ModelSubcategories.objects.all(), widget=CustomSelect())
     class Meta:
         model = ModelPosts
-        fields = ['title', 'slug', 'subcat', 'is_published']
+        fields = ['title', 'subcat', 'is_published']
 
 class PostContentForm(forms.ModelForm):
     content_text = forms.CharField(widget=CustomTextarea())
