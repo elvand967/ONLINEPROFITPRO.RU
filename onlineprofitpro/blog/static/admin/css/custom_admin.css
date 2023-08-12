@@ -80,26 +80,26 @@ form {
 .img-left {
   display: block;
   float: left;
-  max-width: 15%;
+  max-width: 35%;
   max-height: 70%;
   /* max-height: var(--height_Hh); */
   margin: 4px 10px 6px 4px;
-  /*border-radius: 10px;   Скругление углов изображения */
+  border-radius: 10px;  /* Скругление углов изображения */
   /* border: 1px solid var(--colorA15);  Цвет и ширину рамки */
-  box-shadow: 2px 1px 5px #999999;  /* Цвет и размер тени */
+  /* box-shadow: 2px 1px 5px #999999;  Цвет и размер тени */
   padding: 6px;
 }
 
 .img-right {
   float: right;
   display: block;
-  max-width: 15%;
+  max-width: 35%;
   max-height: 70%;
   /* max-height: var(--height_Hh); */
   margin: 4px 10px 6px 4px;
-  /*border-radius: 10px;   Скругление углов изображения */
+  border-radius: 10px;  /* Скругление углов изображения */
   /* border: 1px solid var(--colorA15);  Цвет и ширину рамки */
-  box-shadow: 2px 1px 5px #999999;  /* Цвет и размер тени */
+  /* box-shadow: 2px 1px 5px #999999;  Цвет и размер тени */
   padding: 6px;
 }
 

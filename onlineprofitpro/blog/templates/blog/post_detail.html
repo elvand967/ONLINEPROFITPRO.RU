@@ -10,14 +10,30 @@
 <h1>{{ post.title }}</h1>
 {% for part in post.content_parts.all %}
 <div class="{{ part.css_text.class_css }}{% if part.css_media %} with-image{% endif %}">
-    {% if part.css_media and part.media_file %}
-    <img src="{{ part.media_file.url }}" alt="Image" class="{{ part.css_media.class_css }}">
-    {% endif %}
-    {% if part.css_text %}
-    {{ part.content_text }}
-    {% endif %}
+     {% if part.css_media and part.media_file %}
+     <img src="{{ part.media_file.url }}" alt="Image" class="{{ part.css_media.class_css }}">
+     {% endif %}
+     {% if part.css_text %}
+     {% autoescape off %}
+     {{ part.content_text|linebreaks }}
+     {% endautoescape %}
+     {% endif %}
 </div>
 {% endfor %}
-<p class="author-info">Автор: {{ post.user_first_name }} {{ post.user_last_name }}
-    ({{ post.user_username }})</p>
+
+<div class="row align-items-stretch d-flex">
+    <div class="col-md-8 col-sm-12 mt-auto">
+        {% if post.user_first_name or post.user_last_name or post.user_username %}
+        <div class="author-info">
+            Author:
+            {% if post.user_first_name %}{{ post.user_first_name }} {% endif %}
+            {% if post.user_last_name %}{{ post.user_last_name }} {% endif %}
+            {% if post.user_username %}({{ post.user_username }}){% endif %}
+        </div>
+        {% endif %}
+    </div>
+    <div class="col-md-4 col-sm-12 text-end">
+        <a href="#" class="btn btn-primary mt-2">Leave a comment</a>
+    </div>
+</div>
 {% endblock %}

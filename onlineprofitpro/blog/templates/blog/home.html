@@ -5,36 +5,39 @@
 {% block content %}
 
 {% for preview in post_previews %}
-<div class="row header_post">
-    <div class="col-md-6 col-sm-12 text-start">{{ preview.post.subcat }}</div>
-    <div class="col-md-6 text-end col-sm-12 text-start">{{ preview.post.time_update}}</div>
+<div class="row align-items-stretch d-flex header_post">
+     <div class="col-md-6 col-sm-12 text-start">{{ preview.post.subcat }}</div>
+     <div class="col-md-6 text-end col-sm-12 text-start">{{ preview.post.time_update}}</div>
 </div>
 <!-- Post text and thumbnail -->
 <div class="image-container">
-    {% if preview.media_file %}
-    <img src="{{ preview.media_file.url }}" alt="Image"
-         class="img-responsive {% if preview.css_media_class %}{{ preview.css_media_class }}{% endif %}">
-    {% endif %}
-    <h2>{{ preview.post.title }}</h2>
-    {% if preview.content_text %}
-    {% autoescape on %}
-    <p>{{preview.content_text|linebreaks|truncatewords:50}}</p>
-    {%endautoescape%}
-    {% endif %}
+     {% if preview.media_file %}
+     <img src="{{ preview.media_file.url }}" alt="Image"
+          class="img-responsive {% if preview.css_media_class %}{{ preview.css_media_class }}{% endif %}">
+     {% endif %}
+     <h2>{{ preview.post.title }}</h2>
+     {% if preview.content_text %}
+     {% autoescape on %}
+     <p>{{preview.content_text|linebreaks|truncatewords:50}}</p>
+     {%endautoescape%}
+     {% endif %}
 </div>
-<div class="text-end">
-        {% if preview.author_first_name or preview.author_last_name or preview.author_username %}
-        <div class="author-info">
-            Author:
-            {% if preview.author_first_name %}{{ preview.author_first_name }} {% endif %}
-            {% if preview.author_last_name %}{{ preview.author_last_name }} {% endif %}
-            {% if preview.author_username %}({{ preview.author_username }}){% endif %}
-        </div>
-        {% endif %}
-    <a href="{% url 'post_detail' preview.post.slug %}" class="btn mt-2"
-    >Читать пост</a>
+<div class="row align-items-stretch d-flex">
+     <div class="col-md-8 col-sm-12 mt-auto">
+         {% if preview.author_first_name or preview.author_last_name or preview.author_username %}
+         <div class="author-info">
+             Author:
+             {% if preview.author_first_name %}{{ preview.author_first_name }} {% endif %}
+             {% if preview.author_last_name %}{{ preview.author_last_name }} {% endif %}
+             {% if preview.author_username %}({{ preview.author_username }}){% endif %}
+         </div>
+         {% endif %}
+     </div>
+     <div class="col-md-4 col-sm-12 text-end">
+         <a href="{% url 'post_detail' preview.post.slug %}" class="btn btn-primary mt-2"
+         >Read post</a>
+     </div>
 </div>
-
 <hr>
 {% endfor %}
 {%endblock%}
