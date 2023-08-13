@@ -48,65 +48,6 @@ def about(request):
     return render(request, 'blog/about.html', context)
 
 
-@login_required
-def add_page(request):
-    if request.method == 'POST':
-        form = AddPostForm(request.POST)
-        formset = PostContentFormset(request.POST, request.FILES, prefix='content')
-
-        if form.is_valid() and formset.is_valid():
-            title = form.cleaned_data['title']
-            slug = slug_conversion(title)
-
-            # Create the post instance with the generated slug and other fields
-            post = form.save(commit=False)
-            post.slug = slug
-            post.user_first_name = request.user.first_name
-            post.user_last_name = request.user.last_name
-            post.user_username = request.user.username
-            post.save()
-
-            for sub_form in formset:
-                content_part = sub_form.save(commit=False)
-                content_part.post = post
-                content_part.save()
-
-            if 'add_block_button' in request.POST:
-                return redirect('add_post_block', post_slug=slug)
-            else:
-                return redirect('home')
-
-    else:
-        form = AddPostForm()
-        formset = PostContentFormset(prefix='content')
-
-    # Determine the author display name
-    user = request.user
-    author_display_name = user.get_full_name() or user.username
-
-    return render(request, 'blog/addpage.html', {'title': 'Add "Guest" Post', 'form': form, 'formset': formset, 'author_display_name': author_display_name})
-
-
-def add_post_block(request, post_slug):
-    post = get_object_or_404(ModelPosts, slug=post_slug)
-
-    if request.method == 'POST':
-        post_content_form = PostContentForm(request.POST, request.FILES)
-        if post_content_form.is_valid():
-            post_content = post_content_form.save(commit=False)
-            post_content.post = post
-            post_content.save()
-
-            if 'add_post_block' in request.POST:
-                return redirect('add_post_block', post_slug=post_slug)
-            elif 'submit' in request.POST:
-                return redirect('home')
-    else:
-        post_content_form = PostContentForm()
-
-    return render(request, 'blog/addpostblock.html', {'post': post, 'post_content_form': post_content_form})
-
-
 def login(request):
     return HttpResponse("<h1>login</h1>")
 
@@ -171,3 +112,62 @@ def home(request, category_slug=None, subcategory_slug=None):
 def post_detail(request, post_slug):
     post = get_object_or_404(ModelPosts, slug=post_slug, is_published=True)
     return render(request, 'blog/post_detail.html', {'post': post})
+
+
+@login_required
+def add_page(request):
+    if request.method == 'POST':
+        form = AddPostForm(request.POST)
+        formset = PostContentFormset(request.POST, request.FILES, prefix='content')
+
+        if form.is_valid() and formset.is_valid():
+            title = form.cleaned_data['title']
+            slug = slug_conversion(title)
+
+            # Create the post instance with the generated slug and other fields
+            post = form.save(commit=False)
+            post.slug = slug
+            post.user_first_name = request.user.first_name
+            post.user_last_name = request.user.last_name
+            post.user_username = request.user.username
+            post.save()
+
+            for sub_form in formset:
+                content_part = sub_form.save(commit=False)
+                content_part.post = post
+                content_part.save()
+
+            if 'add_block_button' in request.POST:
+                return redirect('add_post_block', post_slug=slug)
+            else:
+                return redirect('home')
+
+    else:
+        form = AddPostForm()
+        formset = PostContentFormset(prefix='content')
+
+    # Determine the author display name
+    user = request.user
+    author_display_name = user.get_full_name() or user.username
+
+    return render(request, 'blog/addpage.html', {'title': 'Add "Guest" Post', 'form': form, 'formset': formset, 'author_display_name': author_display_name})
+
+
+def add_post_block(request, post_slug):
+    post = get_object_or_404(ModelPosts, slug=post_slug)
+
+    if request.method == 'POST':
+        post_content_form = PostContentForm(request.POST, request.FILES)
+        if post_content_form.is_valid():
+            post_content = post_content_form.save(commit=False)
+            post_content.post = post
+            post_content.save()
+
+            if 'add_post_block' in request.POST:
+                return redirect('add_post_block', post_slug=post_slug)
+            elif 'submit' in request.POST:
+                return redirect('home')
+    else:
+        post_content_form = PostContentForm()
+
+    return render(request, 'blog/addpostblock.html', {'post': post, 'post_content_form': post_content_form})
