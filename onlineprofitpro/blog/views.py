@@ -1,13 +1,22 @@
 # D:\Python\django\ONLINEPROFITPRO.RU\onlineprofitpro\blog\views.py
 
 
+
 from django.contrib.auth.decorators import login_required
-from .forms import AddPostForm, PostContentFormset, PostContentForm
+from django.template.defaultfilters import truncatewords_html
+from django.urls import reverse_lazy
+from django.views.generic import ListView
+
+from .forms import AddPostForm, PostContentFormset, PostContentForm, RegisterUserForm
+
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from django.utils.text import slugify
 from unidecode import unidecode
+
+from django.views.generic.edit import FormView
+from django.contrib.auth.forms import UserCreationForm
 
 def slug_conversion(title):
     # Transliterate the title to ASCII characters
@@ -115,12 +124,41 @@ def user_profile(request, username):
     return HttpResponse(f"<h1>User profile for {username}</h1>")
 
 
-def register(request):
-    context = {
-        'title': 'Регистрация',
-        'page_content': 'Это о содержании страницы "Регистрация".',
-    }
-    return render(request, 'blog/register.html', context)
+class RegisterUser(FormView):
+    form_class = RegisterUserForm
+    template_name = 'blog/register.html'
+    success_url = reverse_lazy('home')  # в дальнейшем доработать выход на страницу профиля
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+
+
+# from django.urls import reverse_lazy
+# from django.views.generic.edit import FormView
+# from django.contrib.auth.forms import UserCreationForm
+# from .models import CustomUser  # Замените на вашу модель пользователя, если используется другая
+#
+# class RegisterUser(FormView):
+#     form_class = UserCreationForm  # Используем стандартную форму создания пользователя
+#     template_name = 'register.html'
+#     success_url = reverse_lazy('home')  # Или другой URL, куда перенаправлять после успешной регистрации
+#
+#     def form_valid(self, form):
+#         # Создаем нового пользователя, используя данные из формы
+#         user = form.save()
+#
+#         # Дополнительные действия, если необходимо
+#         # Например, присвоение дополнительных полей вашей модели пользователя
+#         custom_user = CustomUser.objects.create(user=user, additional_field='value')
+#
+#         # Дополнительные действия, если необходимо
+#         # Например, отправка подтверждения на почту
+#         # ...
+#
+#         return super().form_valid(form)
+
 
 
 def home(request, category_slug=None, subcategory_slug=None):
@@ -133,8 +171,10 @@ def home(request, category_slug=None, subcategory_slug=None):
         posts = posts.filter(subcat__category=selected_category)
 
         if subcategory_slug:
-            selected_subcategory = get_object_or_404(ModelSubcategories, slug=subcategory_slug, category=selected_category)
+            selected_subcategory = get_object_or_404(ModelSubcategories, slug=subcategory_slug,
+                                                     category=selected_category)
             posts = posts.filter(subcat=selected_subcategory)
+            selected_category = selected_subcategory.category  # Update selected_category to subcategory's category
         else:
             selected_subcategory = None
     else:
@@ -144,25 +184,29 @@ def home(request, category_slug=None, subcategory_slug=None):
     # Create a list to store post previews including author information
     post_previews = []
     for post in posts:
-        # Get the first content part of the post
         first_part = post.content_parts.first()
         if first_part:
-            # Append the first part of the post and author information to the list
+            if first_part.css_image.class_css == "img-large":
+                css_image_style = "float: left; max-width: 120px;"
+            else:
+                css_image_style = "max-width: 120px;"
+
             post_previews.append({
                 'post': post,
-                'content_text': first_part.content_text,
+                'content_text': truncatewords_html(first_part.content_text, 50),
                 'css_text_class': first_part.css_text.class_css if first_part.css_text else '',
-                'media_file': first_part.media_file,
-                'css_media_class': first_part.css_media.class_css if first_part.css_media else '',
-                'author_first_name': post.user_first_name,
-                'author_last_name': post.user_last_name,
-                'author_username': post.user_username,
+                'image_file': first_part.image_file,
+                'css_image_class': first_part.css_image.class_css if first_part.css_image else '',
+                'css_image_style': css_image_style,
+                'user': post.user,  # Add the user attribute for the post preview
             })
+
     context = {
         'post_previews': post_previews,
         'selected_category': selected_category,
         'selected_subcategory': selected_subcategory,
-        'title': selected_subcategory.name if selected_subcategory else (selected_category.name if selected_category else "Elvand"),
+        'title': selected_subcategory.name if selected_subcategory else (
+            selected_category.name if selected_category else "Elvand"),
     }
 
     return render(request, 'blog/home.html', context)
@@ -171,3 +215,6 @@ def home(request, category_slug=None, subcategory_slug=None):
 def post_detail(request, post_slug):
     post = get_object_or_404(ModelPosts, slug=post_slug, is_published=True)
     return render(request, 'blog/post_detail.html', {'post': post})
+
+
+

@@ -1,9 +1,10 @@
-import os
+
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
-from .utils import get_media_file_path
-
+from .utils import *
+from .utils import extract_youtube_id
 
 class ModelCategories(models.Model):
     name = models.CharField(max_length=100, db_index=True, verbose_name="Категория")
@@ -46,9 +47,14 @@ class ModelPosts(models.Model):
     is_published = models.BooleanField(default=True, verbose_name="Публикация")
     subcat = models.ForeignKey('ModelSubcategories', on_delete=models.PROTECT, verbose_name="ПодКатегории")
     # User information
-    user_first_name = models.CharField(max_length=30, blank=True, null=True, verbose_name="User First Name")
-    user_last_name = models.CharField(max_length=30, blank=True, null=True, verbose_name="User Last Name")
-    user_username = models.CharField(max_length=150, blank=True, null=True, verbose_name="User Username")
+    user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Author"
+    )
+
 
     def __str__(self):
         return self.title
@@ -65,6 +71,11 @@ class ModelPosts(models.Model):
 class ModelCssClass(models.Model):
     CSS_TYPE_CHOICES = (
         ('text', 'Text'),
+        ('image', 'Image'),
+        ('video', 'Video'),
+        ('code', 'Code'),
+        ('youtube', 'YouTube'),
+        ('audio', 'Audio'),
         ('media', 'Media'),
         # Add more choices if needed for different types
     )
@@ -90,7 +101,7 @@ class ModelCssClass(models.Model):
 
 class ModelPostContent(models.Model):
     post = models.ForeignKey(ModelPosts, on_delete=models.CASCADE, related_name='content_parts')
-    content_text = models.TextField(blank=True, null=True, verbose_name="Часть текста поста")
+    content_text = models.TextField(blank=True, null=True, verbose_name="Post Text Part")
     css_text = models.ForeignKey(
         ModelCssClass,
         on_delete=models.SET_NULL,
@@ -99,7 +110,16 @@ class ModelPostContent(models.Model):
         related_name='text_content',
         verbose_name="CSS Class for Text"
     )
-    media_file = models.FileField(upload_to=get_media_file_path, blank=True, null=True)
+    image_file = models.FileField(upload_to=get_image_file_path, blank=True, null=True, verbose_name="Post Image Part")
+    css_image = models.ForeignKey(
+        ModelCssClass,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='image_content',
+        verbose_name="CSS Class for Image"
+    )
+    media_file = models.FileField(upload_to=get_media_file_path, blank=True, null=True, verbose_name="Post Media Part")
     css_media = models.ForeignKey(
         ModelCssClass,
         on_delete=models.SET_NULL,
@@ -108,23 +128,51 @@ class ModelPostContent(models.Model):
         related_name='media_content',
         verbose_name="CSS Class for Media"
     )
+    youtube_video = models.URLField(blank=True, null=True, verbose_name="YouTube Video URL")
+    css_youtube = models.ForeignKey(
+        ModelCssClass,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='youtube_content',
+        verbose_name="CSS Class for YouTube Video"
+    )
+    code = models.TextField(blank=True, null=True, verbose_name="Code")
+    css_code = models.ForeignKey(
+        ModelCssClass,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='code_content',
+        verbose_name="CSS Class for Code"
+    )
+
 
     def __str__(self):
-        return f"{self.post} - Part {self.pk}"
+        return f"{self.post} - Part{self.pk}"
 
     def save(self, *args, **kwargs):
-        # Rename the media file if it already exists
-        if self.media_file:
-            new_filename = f"{self.post.slug}_{self.pk}{os.path.splitext(self.media_file.name)[1]}"
-            self.media_file.name = new_filename
+        if self.youtube_video:
+            youtube_id = extract_youtube_id(self.youtube_video)
+            if youtube_id:
+                self.youtube_video = f"https://www.youtube.com/embed/{youtube_id}"
 
         super().save(*args, **kwargs)
 
     def get_text_css_class(self):
         return self.css_text.name_css_class if self.css_text else ""
 
+    def get_image_css_class(self):
+        return self.css_image.name_css_class if self.css_image else ""
+
     def get_media_css_class(self):
         return self.css_media.name_css_class if self.css_media else ""
+
+    def get_youtube_css_class(self):
+        return self.css_youtube.name_css_class if self.css_youtube else ""
+
+    def get_code_css_class(self):
+        return self.css_code.name_css_class if self.css_code else ""
 
 
 class ModelComments(models.Model):  # Комментарии к посту

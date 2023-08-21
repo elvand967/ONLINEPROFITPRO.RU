@@ -8,16 +8,31 @@ from blog.models import *
 register = template.Library()
 
 
-menu = [{'title': "Главная", 'url_name': 'home'},
-        {'title': "О нас", 'url_name': 'about'},
-        {'title': "Обратная связь", 'url_name': 'contact'},
-        {'title': "Добавить пост", 'url_name': 'addpage'},
-]
 #  определим функцию def get_horizontal_menu(), которая будет выполняться при вызове нашего тега из шаблона
 #  и свяжем эту функцию с тегом, или, превратим эту функцию в тег, используя специальный декоратор, доступный через переменную register:
 @register.simple_tag()
 def get_horizontal_menu():
+    menu = [{'title': "Главная", 'url_name': 'home'},
+            # {'title': "О нас", 'url_name': 'about'},
+            {'title': "Обратная связь", 'url_name': 'contact'},
+            {'title': "Добавить >>Гостевой пост<<", 'url_name': 'addpage'},
+            ]
     return menu
+
+
+@register.simple_tag()
+def get_horizontal_menu_cat():
+    menu_cat = []
+    categories = ModelCategories.objects.all()
+    for category in categories:
+        menu_cat.append({
+            'title': category.name,
+            'url_name': 'home_category',
+            'category_slug': category.slug,
+        })
+    return menu_cat
+
+
 '''
 После создания своего простого пользовательского тега для использования его в шаблонах
 вначале выполним загрузку тегов в шаблон (base.html), определенных в этом файле blog_tags.py.

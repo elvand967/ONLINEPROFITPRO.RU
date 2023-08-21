@@ -1,3 +1,144 @@
+:root {
+  /*Цветовая колекция*/
+  --color11: #6ACFC8;
+  --color12: #629B97;
+  --color13: #22877F;
+  --color14: #92E7E1;
+  --color15: #A9E7E2;
+  --color16: #C2F3EF;
+  --color17: #e2faf8;
+  --colorA11: #7897D5;
+  --colorA12: #6B7DA0;
+  --colorA13: #27488B;
+  --colorA14: #9DB7EA;
+  --colorA15: #B2C5EA;
+  --colorB11: #82E877;
+  --colorB12: #75AE6F;
+  --colorB13: #319727;
+  --colorB14: #A3F49B;
+  --colorB15: #B9F4B2;
+  --color21: #0C1A1A;
+  --color22: #0C1414;
+  --color23: #041111;
+  --color24: #548D8D;
+  --color25: #638D8D;
+  --colorA21: #0F131D;
+  --colorA22: #0E1016;
+  --colorA23: #050913;
+  --colorA24: #5B6A8E;
+  --colorA25: #68748E;
+  --colorB21: #102310;
+  --colorB22: #101A10;
+  --colorB23: #051705;
+  --colorB24: #569156;
+  --colorB25: #669166;
+}
+
+/* Set the font family for the body */
+body {
+    font-family: 'Roboto', sans-serif;
+    background:var(--color16);
+}
+
+/* Set the font family for the headings */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+}
+/* Set 'Roboto' font for buttons */
+button, input[type="button"], input[type="submit"] {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Set 'Roboto' font for form input fields */
+input[type="text"], input[type="password"], input[type="email"], textarea {
+    font-family: 'Roboto', sans-serif;
+}
+form {
+    font-family: 'Roboto'; /* Use the font specified in the body */
+}
+
+/* Text Alignment Styles */
+.text-align-justify {
+    text-align: justify;
+}
+.text-align-left {
+    text-align: left;
+}
+.text-align-right {
+    text-align: right;
+}
+.text-align-center {
+    text-align: center;
+}
+
+/* Image Styles end  Positioning Styles */
+.img-left-small {
+    float: left;
+    max-width: 50%;
+    margin: 5px 10px 5px 0;
+}
+.img-left-medium {
+    float: left;
+    max-width: 70%;
+    margin: 5px 10px 5px 0;
+}
+.img-right-small {
+    float: right;
+    max-width: 50%;
+    margin: 5px 0 5px 10px;
+}
+.img-right-medium {
+    float: right;
+    max-width: 70%;
+    margin: 5px 0 5px 10px;
+}
+.img-large {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    margin: 5px 10px 5px 0;
+}
+
+/* YouTube Styles */
+.youtube-center {
+    display: flex;
+    justify-content: center;
+    /* align-items: center;  если нужно выравнивание по вертикали
+    max-width: 70%; */
+    margin: 10px;
+}
+.youtube-left {
+    display: flex;
+    justify-content: start;
+    float: left; /* Or float: right; depending on your design */
+    max-width: 70%;
+    margin: 5px 10px 5px 0;
+}
+.youtube-right {
+    display: flex;
+    justify-content: end;
+    float: right; /* Or float: right; depending on your design */
+    max-width: 70%;
+    margin: 5px 0 5px 10px;
+}
+.content-container {
+    display: grid;
+    align-content: center;
+    min-height: 200px; /* Минимальная высота для блока */
+}
+
+
+.block {
+  /*background-color: #aaf7e4;*/
+  border: solid 1px #1f1b1b;
+  /*padding: 20px;*/
+  margin: 0 0 20px;/**/
+  text-align: center;
+  min-height: 200px;
+  color: #050913;
+}
+
+
 
 .blog-post {
 display: block;
@@ -38,7 +179,7 @@ padding: 8px;
 
 footer,
 section {
-  padding: 30px 0;
+  padding: 30px 10px;
 }
 
 header,
@@ -138,3 +279,24 @@ footer {
 
 
 /*=======================================*/
+.form-input {
+    width: 300px;
+    font-size: 16px;
+}
+
+.form-label {
+    display: inline-block;
+    min-width: 150px;
+    vertical-align: top;
+}
+
+.form-error ul {
+    list-style: none;
+    padding: 0;
+    color: #CC0000;
+}
+
+.form-button {
+    min-width: 200px;
+    font-size: 16px;
+}

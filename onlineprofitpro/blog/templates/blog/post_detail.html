@@ -1,5 +1,3 @@
-<!-- D:\Python\django\ONLINEPROFITPRO.RU\onlineprofitpro\blog\templates\blog\post_detail.html -->
-
 {% extends 'blog/base.html' %}
 
 {% block title %}
@@ -9,29 +7,39 @@
 {% block content %}
 <h1>{{ post.title }}</h1>
 {% for part in post.content_parts.all %}
-<div class="{{ part.css_text.class_css }}{% if part.css_media %} with-image{% endif %}">
-     {% if part.css_media and part.media_file %}
-     <img src="{{ part.media_file.url }}" alt="Image" class="{{ part.css_media.class_css }}">
-     {% endif %}
-     {% if part.css_text %}
-     {% autoescape off %}
-     {{ part.content_text|linebreaks }}
-     {% endautoescape %}
-     {% endif %}
+<div class="content-container">
+    <div class="{{ part.css_text.class_css }}">
+        {% if part.image_file %}
+        <img src="{{ part.image_file.url }}" alt="Image" class="{{ part.css_image.class_css }}">
+        {% endif %}
+
+        {% if part.youtube_video %}
+        <div class="{{ part.css_youtube.class_css }}">
+            <iframe width="560" height="315" src="{{ part.youtube_video }}" title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>
+        </div>
+        {% endif %}
+
+        {% if part.css_text %}
+        {% autoescape on %}
+        {{ part.content_text|linebreaks }}
+        {% endautoescape %}
+        {% endif %}
+    </div>
 </div>
 {% endfor %}
 
 <div class="row align-items-stretch d-flex">
     <div class="col-md-8 col-sm-12 mt-auto">
-        {% if post.user_first_name or post.user_last_name or post.user_username %}
+    {% if post.user and not post.user.is_superuser %}
         <div class="author-info">
-            Author:
-            {% if post.user_first_name %}{{ post.user_first_name }} {% endif %}
-            {% if post.user_last_name %}{{ post.user_last_name }} {% endif %}
-            {% if post.user_username %}({{ post.user_username }}){% endif %}
+            Author: {{ post.user.first_name }} {{ post.user.last_name }} ({{ post.user.username }})
         </div>
-        {% endif %}
-    </div>
+    {% endif %}
+</div>
+
     <div class="col-md-4 col-sm-12 text-end">
         <a href="#" class="btn btn-primary mt-2">Leave a comment</a>
     </div>

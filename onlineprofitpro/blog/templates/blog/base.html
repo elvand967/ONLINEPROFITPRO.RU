@@ -8,79 +8,77 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>{% block title %}{{ title }}{% endblock %}</title>
     <link rel="shortcut icon" href="{% static 'blog/img/main.ico' %}" type="image/x-icon"/>
-    <link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'admin/css/bootstrap.css' %}"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"/>
-
-    <link type="text/css" href="{% static 'admin/css/custom_admin.css' %}" rel="stylesheet"/>
     <link type="text/css" href="{% static 'blog/css/styles.css' %}" rel="stylesheet"/>
 </head>
 
 <body>
 <div class="container-fluid mx-auto align-self-center">
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <!-- Logo -->
-                <div class="col-sm-6 col-md-6 col-lg-2 d-flex align-items-center">
-                    <a class="navbar-brand" href="{% url 'home' %}">
-                        <img src="{% static 'blog/img/logo.png' %}" alt="Elvand" width="50" height="50"/>
-                    </a>
-                </div>
-                <!-- Menu Links and Collapsed Menu -->
-                <div class="col-sm-6 col-md-6 col-lg-6 d-flex align-items-center justify-content-end">
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        {% get_horizontal_menu as horizontal_menu %}
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            {% for item in horizontal_menu %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url item.url_name %}">{{ item.title }}</a>
+                <div class="navbar-brand">
+                    <li>
+                        <img src="{% static 'blog/img/logo.png' %}" alt="Elvand" data-bs-toggle="dropdown" width="40" height="40"/>
+                        <ul class="dropdown-menu">
+                            {% get_horizontal_menu_cat as horizontal_menu_cat %}
+                            {% for item in horizontal_menu_cat %}
+                            <li class="dropdown-item">
+                                <a class="nav-link" href="{% url item.url_name category_slug=item.category_slug %}">
+                                    {{ item.title }}</a>
                             </li>
                             {% endfor %}
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'home' %}">Все категории</a></li>
                         </ul>
-                    </div>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                    </li>
+
                 </div>
-                <!-- Authentication Links and Search Form -->
-                <div class="col-md-12 col-lg-4">
-                    <div class="row">
-                        <!-- Authentication links -->
-                        <div class="col-sm-12 col-md-7 col-lg-6">
-                            {% if user.is_authenticated %}
-                            <ul class="navbar-nav flex-row justify-content-start">
-                                <li class="nav-item">
-                                    <a class="nav-link"
-                                       href="{% url 'user_profile' user.username %}">{{ user.username }}&nbsp;</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                                </li>
-                            </ul>
-                            {% else %}
-                            <ul class="navbar-nav flex-row justify-content-start">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'login' %}">Login&nbsp;</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'register' %}">Register</a>
-                                </li>
-                            </ul>
-                            {% endif %}
-                        </div>
-                        <div class="col-sm-12 col-md-5 col-lg-6">
-                            <!-- Search form -->
-                            <form class="d-flex me-auto" role="search">
-                                <input class="form-control me-2" type="search" placeholder="Поиск"
-                                       aria-label="Search"/>
-                                <button class="btn btn-outline-success" type="submit">
-                                    Поиск
-                                </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Переключатель навигации">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        {% get_horizontal_menu as horizontal_menu %}
+                        {% for item in horizontal_menu %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url item.url_name %}">{{ item.title }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <form class="d-flex" role="search">
+                                <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
+                                <button class="btn btn-outline-success" type="submit">Поиск</button>
                             </form>
-                        </div>
-                    </div>
+                        </li>
+                        <li class="nav-item">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               href="{% url 'user_profile' user.username %}">{{ user.username }}&nbsp;</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Войти&nbsp;</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Зарегистрироваться</a>
+                        </li>
+                        {% endif %}
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -91,17 +89,15 @@
         <div class="col-sm-2 col-md-3 col-lg-3 col-xl-2">
             <!-- Menu Links Vertical and Collapsed Menu -->
             <nav class="navbar navbar-expand-lg navbar-light vert_nav">
-                <div class="container-fluid ">
+                <div class="container-fluid">
                     <div class="d-flex align-items-center justify-content-end">
                         <div class="collapse navbar-collapse" id="navbarVertical">
                             {% menu_cat_subcat as menu_cs %}
                             <ul>
-                                <li>
-                                    <a href="{% url 'home' %}">Все посты</a>
-                                </li>
                                 {% for category in menu_cs.categories %}
                                 <li>
                                     <a href="{% url 'home' category_slug=category.slug %}">{{ category.name }}</a>
+                                    {% if category == selected_category %}
                                     <ul>
                                         {% for subcategory in category.subcategories.all %}
                                         <li>
@@ -111,6 +107,7 @@
                                         </li>
                                         {% endfor %}
                                     </ul>
+                                    {% endif %}
                                 </li>
                                 {% endfor %}
                             </ul>
@@ -123,7 +120,6 @@
                     </div>
                 </div>
             </nav>
-            <div class="block">block</div>
         </div>
 
         <div class="col-sm-8 col-md-6 col-lg-6 col-xl-6">{% block content %} {% endblock %}</div>
@@ -145,7 +141,8 @@
         asperiores. Quam, fugiat. Repellendus sequi vel, quisquam facilis, at
     </footer>
 </div>
-<script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="{% static 'admin/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 
 </html>
